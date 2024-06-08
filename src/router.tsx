@@ -9,11 +9,11 @@ export const router = createBrowserRouter([
     {
         path: "/",
         element: <IndexPage />,
-        // errorElement: <_404Page/>
+        errorElement: <_404Page/>
     },
     {
         path: "/user/:id",
         element: <UserProfile />,
-        // errorElement: <_404Page/>
+        errorElement: <_404Page/>
     },
 ]);
