@@ -36,7 +36,7 @@ function UserProfile() {
                         <p className="card-text">{faker.lorem.paragraph(6)}</p>
                     </li>
                 </ul>
-                <QRCodeSVG value={"https://met-bath.web.app/users/" + id} className="card-img-bottom"
+                <QRCodeSVG value={"https://met-bath.web.app/user/" + id} className="card-img-bottom"
                            style={{padding: "10px"}}/>
             </div>
 
