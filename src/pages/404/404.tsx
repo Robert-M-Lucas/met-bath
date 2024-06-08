@@ -1,5 +1,5 @@
-import {FullscreenCenter} from "../../components/FullscreenCenter.tsx";
 import {useNavigate} from "react-router-dom";
+import {FullscreenCenter} from "../../components/FullscreenCenter.tsx";
 
 function _404Page() {
     const navigate = useNavigate();
