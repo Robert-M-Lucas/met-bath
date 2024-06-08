@@ -3,7 +3,7 @@
 
 function IndexPage() {
     return (<>
-        <h1>Hello</h1>
+        <h1>Index</h1>
         </>);
 }
 
