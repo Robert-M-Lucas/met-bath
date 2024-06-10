@@ -19,7 +19,7 @@ function UserProfile() {
 
     const [firstname, lastname] = [faker.person.firstName(), faker.person.lastName()];
 
-    const past_experience_count = (idn % 5) + 2
+    const past_experience_count = (idn % 3) + 2
 
     const experience = [...Array(past_experience_count)].map(
         () => <>
