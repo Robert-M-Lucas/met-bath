@@ -5,6 +5,7 @@ import { UserProfile } from "../../util/user.ts";
 import { BusinessCard } from "../../components/business_card/BusinessCard.tsx";
 import IndexPage from "../index/IndexPage.tsx";
 import { faker } from "@faker-js/faker";
+import { Header } from "../../components/header/Header.tsx";
 
 function UserProfilePage() {
     const { id } = useParams();
@@ -21,6 +22,7 @@ function UserProfilePage() {
     faker.seed(idn);
 
     return (<>
+        <Header/>
         <div style={{height: "6rem"}}></div>
         <div className="d-flex justify-content-between align-items-center">
             <div className="flex-grow-1" style={{height: "1px", background: "rgba(0, 0, 0, 0.176)"}}></div>

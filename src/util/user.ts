@@ -65,7 +65,6 @@ export class UserProfile {
 
         const hue = faker.number.float({min: 0, max: 1});
         const foreground = HSVtoRGB(hue, 0.75, 0.75);
-        console.log(foreground);
         const secondary_sat = faker.number.int({min: 0, max: 1}) == 0 ? 0 : 0.5;
         const secondary = HSVtoRGB(hue, secondary_sat, secondary_sat);
 
