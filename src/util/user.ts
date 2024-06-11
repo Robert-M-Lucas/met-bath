@@ -1,8 +1,9 @@
-import { faker, ur } from "@faker-js/faker";
+import { faker } from "@faker-js/faker";
 
 export type Color = {r: number, g: number, b: number};
 
 interface UserProfileData {
+    id: number,
     firstname: string,
     surname: string,
     job_title: string,
@@ -56,7 +57,7 @@ export class UserProfile {
         return this.data.website;
     }
 
-    static fake_from_id(id: number, sex?: string): UserProfile {
+    static fake_from_id(id: number, sex?: "male" | "female"): UserProfile {
         faker.seed(id);
 
         const firstname = faker.person.firstName(sex);
@@ -69,6 +70,7 @@ export class UserProfile {
         const secondary = HSVtoRGB(hue, secondary_sat, secondary_sat);
 
         return new UserProfile({
+            id: id,
             firstname: firstname,
             surname: lastname,
             job_title: faker.person.jobTitle(),
