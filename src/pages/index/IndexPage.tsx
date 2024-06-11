@@ -9,7 +9,6 @@ function IndexPage() {
     };
 
     return (<>
-        <h1>Index</h1>
         <button type="button" className="btn btn-outline-primary" onClick={onclick}>Random User</button>
     </>);
 }
