@@ -17,7 +17,6 @@ function UserProfilePage() {
 
     faker.seed(idn);
     const sex = faker.number.int({min: 0, max: 1});
-
     const user_profile = UserProfile.fake_from_id(idn, (sex == 0 ? "male" : "female"));
     faker.seed(idn);
 

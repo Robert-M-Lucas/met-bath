@@ -3,6 +3,7 @@ import { BusinessCard } from "../../components/business_card/BusinessCard";
 import { FullscreenCenter } from "../../components/FullscreenCenter";
 import { UserProfile } from "../../util/user";
 import _404Page from "../404/404";
+import { faker } from "@faker-js/faker";
 
 
 export function BusinessCardPage() {
@@ -14,7 +15,9 @@ export function BusinessCardPage() {
 
     const idn = parseInt(id);
 
-    const user_profile = UserProfile.fake_from_id(idn);
+    faker.seed(idn);
+    const sex = faker.number.int({min: 0, max: 1});
+    const user_profile = UserProfile.fake_from_id(idn, (sex == 0 ? "male" : "female"));
 
     return <>
         <FullscreenCenter>
