@@ -4,6 +4,9 @@ import { auth } from "../../util/firebase";
 import { useNavigate } from "react-router-dom";
 import { UserProfile, getUserProfile } from "../../util/user_profile";
 import { BusinessCard } from "../../components/business_card/BusinessCard";
+import { ChromePicker, ColorResult } from "react-color";
+import React from "react";
+import { CodeToColor, hexToRgb } from "../../util/util";
 
 
 export function YouPage() {
@@ -55,6 +58,24 @@ export function YouPage() {
     const updateWebsite = (val: string) => { userProfile.data.website = ne(val); }
     const updateAbout = (e: ChangeEvent<HTMLTextAreaElement>) => { 
         userProfile.data.about = ne(e.target.value);
+        setUserProfile(userProfile);
+        forceUpdate();
+    }
+
+    const updateForegroundColor = (c: ColorResult) => {
+        userProfile.data.card_foreground = CodeToColor(c.hex.toLowerCase());
+        setUserProfile(userProfile);
+        forceUpdate();
+    }
+
+    const updateSecondaryColor = (c: ColorResult) => {
+        userProfile.data.card_secondary = CodeToColor(c.hex.toLowerCase());
+        setUserProfile(userProfile);
+        forceUpdate();
+    }
+
+    const updateBackgroundColor = (c: ColorResult) => {
+        userProfile.data.card_background = CodeToColor(c.hex.toLowerCase());
         setUserProfile(userProfile);
         forceUpdate();
     }
@@ -111,6 +132,29 @@ export function YouPage() {
                     <textarea value={userProfile.data.about ?? ""} onChange={updateAbout} className="form-control" id="exampleInputEmail1" placeholder="Optional - alphanumeric and spaces"/>
                     <div id="emailHelp" className="form-text">Some extra information about you - not shown on your card</div>
                 </div>
+                <div className="mb-3">
+                    <div className="row">
+                        <div className="col d-flex justify-content-center">
+                            <div className="text-center">
+                                <p>Card foreground colour</p>
+                                <ColorPicker onChange={updateForegroundColor}/>
+                            </div>
+                        </div>
+                        <div className="col d-flex justify-content-center">
+                            <div className="text-center">
+                                <p>Card secondary colour</p>
+                                <ColorPicker onChange={updateSecondaryColor}/>
+                            </div>
+                        </div>
+                        <div className="col d-flex justify-content-center">
+                            <div className="text-center">
+                                <p>Card background colour</p>
+                                <ColorPicker onChange={updateBackgroundColor}/>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
 
                 <p>Card preview:</p>
                 {cardPreview}
@@ -123,3 +167,33 @@ export function YouPage() {
         </div>
     </>
 }
+
+interface ColorPickerProps {
+    onChange: (c: ColorResult) => void
+}
+
+class ColorPicker extends React.Component<ColorPickerProps> {
+    constructor(props: ColorPickerProps) {
+        super(props);
+    }
+
+    state = {
+      background: '#fff',
+    };
+  
+    handleChangeComplete = (color: ColorResult) => {
+      this.setState({ background: color.hex });
+      const { onChange } = this.props;
+      onChange(color);
+    };
+  
+    render() {
+      return (
+        <ChromePicker
+          color={ this.state.background }
+          onChangeComplete={ this.handleChangeComplete }
+          disableAlpha
+        />
+      );
+    }
+  }

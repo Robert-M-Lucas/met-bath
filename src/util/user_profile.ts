@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { CodeToColor as codeToColor, Color, HSVtoRGB } from "./util";
+import { CodeToColor, Color, HSVtoRGB } from "./util";
 import { DocumentSnapshot, SnapshotOptions, collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
 import { db } from "./firebase";
 
@@ -140,9 +140,9 @@ export class UserProfile {
             phone: ne(data.phone),
             about: ne(data.about),
             website: ne(data.website),
-            card_foreground: codeToColor(ne(data.card_foreground)),
-            card_secondary: codeToColor(ne(data.card_secondary)),
-            card_background: codeToColor(ne(data.card_background)),
+            card_foreground: CodeToColor(ne(data.card_foreground)),
+            card_secondary: CodeToColor(ne(data.card_secondary)),
+            card_background: CodeToColor(ne(data.card_background)),
         }, snapshot.id);
         return t;
     }

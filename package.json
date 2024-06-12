@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@types/papaparse": "^5.3.14",
+    "@types/react-color": "^3.0.12",
     "@types/strftime": "^0.9.8",
     "bootstrap": "^5.3.3",
     "firebase": "^10.11.0",
@@ -23,6 +24,7 @@
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.2",
     "react-bootstrap-icons": "^1.11.4",
+    "react-color": "^2.19.3",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.23.0",
     "react-tiles-dnd": "^0.1.2",

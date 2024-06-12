@@ -5,7 +5,7 @@ export function CodeToColor(code: string | undefined): Color | undefined {
         return undefined;
     }
 
-    const result = /^#?([a-f\d]{2}])([a-f\d]{2})([a-f\d]{2})$/i.exec(code);
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(code);
 
     return result ? {
         r: parseInt(result[1],  16),
