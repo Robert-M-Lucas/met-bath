@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
-import { CodeToColor, Color, HSVtoRGB } from "./util";
-import { DocumentSnapshot, SnapshotOptions, collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
+import { CodeToColor, Color, ColorToCode, HSVtoRGB } from "./util";
+import { DocumentSnapshot, SnapshotOptions, collection, doc, getDoc, getDocs, query, setDoc, where } from "firebase/firestore";
 import { db } from "./firebase";
 
 
@@ -16,9 +16,9 @@ interface UserProfileData {
     phone?: string,
     about?: string,
     website?: string,
-    card_foreground?: Color,
-    card_secondary?: Color,
-    card_background?: Color,
+    card_foreground: Color,
+    card_secondary: Color,
+    card_background: Color,
 }
 
 export class UserProfile {
@@ -37,6 +37,9 @@ export class UserProfile {
             surname: "",
             job_title: "",
             location: "",
+            card_foreground: this.defaultForeground(),
+            card_secondary: this.defaultSecondary(),
+            card_background: this.defaultBackground(),
         });
     }
 
@@ -111,6 +114,7 @@ export class UserProfile {
             website: faker.internet.url(),
             card_foreground: foreground,
             card_secondary: secondary,
+            card_background: this.defaultForeground(),
         })
     }
 
@@ -139,11 +143,30 @@ export class UserProfile {
             phone: ne(data.phone),
             about: ne(data.about),
             website: ne(data.website),
-            card_foreground: CodeToColor(ne(data.card_foreground)),
-            card_secondary: CodeToColor(ne(data.card_secondary)),
-            card_background: CodeToColor(ne(data.card_background)),
+            card_foreground: CodeToColor(data.card_foreground)!,
+            card_secondary: CodeToColor(data.card_secondary)!,
+            card_background: CodeToColor(data.card_background)!,
         }, snapshot.id);
         return t;
+    }
+
+    toSendObject(): object {
+        return {
+            alias: this.data.alias,
+            firstname: this.data.firstname,
+            middlenames: this.data.middlenames ?? "",
+            surname: this.data.surname,
+            job_title: this.data.job_title,
+            email: this.data.email ?? "",
+            location: this.data.location ?? "",
+            company: this.data.company ?? "",
+            phone: this.data.phone ?? "",
+            about: this.data.about ?? "",
+            website: this.data.website ?? "",
+            card_foreground: ColorToCode(this.data.card_foreground),
+            card_secondary: ColorToCode(this.data.card_secondary),
+            card_background: ColorToCode(this.data.card_background),
+        };
     }
 }
 
@@ -172,4 +195,12 @@ export async function getUserProfileByAlias(user_alias: string): Promise<UserPro
         }
     );
     return up;
+}
+
+export async function setUserProfileF(user_id: string, user_profile: UserProfile) {
+    const obj = user_profile.toSendObject();
+    await setDoc(
+        doc(collection(db, "UserProfiles"), user_id), 
+        obj
+    );
 }

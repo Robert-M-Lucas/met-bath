@@ -1,10 +1,6 @@
 export type Color = {r: number, g: number, b: number};
 
-export function CodeToColor(code: string | undefined): Color | undefined {
-    if (code === undefined) {
-        return undefined;
-    }
-
+export function CodeToColor(code: string): Color | undefined {
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(code);
 
     return result ? {
@@ -12,6 +8,10 @@ export function CodeToColor(code: string | undefined): Color | undefined {
         g: parseInt(result[2],  16),
         b: parseInt(result[3],  16),
     } : undefined;
+}
+
+export function ColorToCode(color: Color) {
+    return "#" + ((1 << 24) + (color.r << 16) + (color.g << 8) + color.b).toString(16).slice(1);
 }
 
 export function HSVtoRGB(h: number, s: number, v: number): Color {
