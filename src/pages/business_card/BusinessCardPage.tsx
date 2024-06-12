@@ -1,9 +1,8 @@
 import { useParams } from "react-router-dom";
 import { BusinessCard } from "../../components/business_card/BusinessCard";
 import { FullscreenCenter } from "../../components/FullscreenCenter";
-import { UserProfile, getUserProfile } from "../../util/user_profile";
+import { UserProfile, getUserProfile, getUserProfileByAlias } from "../../util/user_profile";
 import _404Page from "../404/404";
-import { faker } from "@faker-js/faker";
 import { useState } from "react";
 
 interface Props {
@@ -19,9 +18,20 @@ export function BusinessCardPage({ username_mode }: Props) {
         return <_404Page/>;
     }
 
-    getUserProfile(id).then((profile) => {
-        setUserProfile(profile);
-    });
+    if (username_mode) {
+        getUserProfileByAlias(id).then((profile) => {
+            setUserProfile(profile);
+        });
+    }
+    else {
+        getUserProfile(id).then((profile) => {
+            setUserProfile(profile);
+            if (profile !== undefined) {
+                window.history.replaceState(null, "", "/user/" + profile.data.alias + "/card")
+            }
+        });
+        
+    }
 
     if (userProfile === null) {
         return <>
