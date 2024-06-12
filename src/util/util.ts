@@ -1,5 +1,19 @@
 export type Color = {r: number, g: number, b: number};
 
+export function CodeToColor(code: string | undefined): Color | undefined {
+    if (code === undefined) {
+        return undefined;
+    }
+
+    const result = /^#?([a-f\d]{2}])([a-f\d]{2})([a-f\d]{2})$/i.exec(code);
+
+    return result ? {
+        r: parseInt(result[1],  16),
+        g: parseInt(result[2],  16),
+        b: parseInt(result[3],  16),
+    } : undefined;
+}
+
 export function HSVtoRGB(h: number, s: number, v: number): Color {
     let r, g, b;
 

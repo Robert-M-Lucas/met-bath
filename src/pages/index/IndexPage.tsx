@@ -6,12 +6,12 @@ function IndexPage() {
     const navigate = useNavigate();
     const onclick = () => {
         const id = Math.floor(Math.random() * 1_000_000_000) + 1;
-        navigate("/user/" + id);
+        navigate("/fakeuser/" + id);
     };
 
     return (<>
-        <Header/>
-        <button type="button" className="btn btn-outline-primary" onClick={onclick}>Random User</button>
+        <Header header_state="Home"/>
+        <button type="button" className="btn btn-outline-primary" onClick={onclick}>Random Fake User</button>
     </>);
 }
 

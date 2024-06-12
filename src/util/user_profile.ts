@@ -1,9 +1,12 @@
 import { faker } from "@faker-js/faker";
-import { Color } from "./util";
+import { CodeToColor as codeToColor, Color, HSVtoRGB } from "./util";
+import { DocumentSnapshot, SnapshotOptions, collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
+import { db } from "./firebase";
 
 
 interface UserProfileData {
     id: string,
+    alias: string,
     firstname: string,
     surname: string,
     job_title: string,
@@ -19,13 +22,15 @@ interface UserProfileData {
 }
 
 export class UserProfile {
-    data: UserProfileData
+    data: UserProfileData;
+    docname: string;
 
-    public constructor(data: UserProfileData) {
+    public constructor(data: UserProfileData, docname: string) {
         this.data = data;
+        this.docname = docname;
     }
 
-    public simple_url() {
+    public simpleUrl() {
         if (!this.data.website) {
             return undefined;
         }
@@ -46,7 +51,7 @@ export class UserProfile {
         return this.data.website;
     }
 
-    public full_url() {
+    public fullUrl() {
         if (!this.data.website) {
             return undefined;
         }
@@ -57,7 +62,7 @@ export class UserProfile {
         return this.data.website;
     }
 
-    static fake_from_id(id: number, sex?: "male" | "female"): UserProfile {
+    static fakeFromId(id: number, sex?: "male" | "female"): UserProfile {
         faker.seed(id);
 
         const firstname = faker.person.firstName(sex);
@@ -69,7 +74,8 @@ export class UserProfile {
         const secondary = HSVtoRGB(hue, secondary_sat, secondary_sat);
 
         return new UserProfile({
-            id: "fake" + id,
+            id: "fake_" + id,
+            alias: "fake_alias",
             firstname: firstname,
             surname: lastname,
             job_title: faker.person.jobTitle(),
@@ -84,7 +90,65 @@ export class UserProfile {
             website: faker.internet.url(),
             card_foreground: foreground,
             card_secondary: secondary,
-        })
+        }, "fake_" + id)
+    }
+
+    static fromFirestore(snapshot: DocumentSnapshot, options: SnapshotOptions): UserProfile | undefined {
+        const data = snapshot.data(options);
+        if (!data) {
+            return undefined;
+        }
+
+        const ne = (s: string): string | undefined => {
+            if (s === "") {
+                return undefined;
+            }
+            return s;
+        }
+
+        const t = new UserProfile({
+            id: data.id,
+            alias: data.alias,
+            firstname: data.firstname,
+            surname: data.surname,
+            job_title: data.job_title,
+            email: data.email,
+            location: data.location,
+            company: ne(data.company),
+            phone: ne(data.phone),
+            about: ne(data.about),
+            website: ne(data.website),
+            card_foreground: codeToColor(ne(data.card_foreground)),
+            card_secondary: codeToColor(ne(data.card_secondary)),
+            card_background: codeToColor(ne(data.card_background)),
+        }, snapshot.id);
+        return t;
     }
 }
 
+export async function getUserProfile(user_id: string): Promise<UserProfile | undefined> {
+    const docRef = doc(collection(db, "UserProfiles"), user_id);
+    
+    let up: UserProfile | undefined = undefined;
+    await getDoc(docRef).then((ds) =>
+        {
+            up = UserProfile.fromFirestore(ds, {});
+        }
+    );
+
+    return up;
+}
+
+export async function getUserProfileByAlias(user_alias: string): Promise<UserProfile | undefined> {
+    const q = query(collection(db, "UserProfiles"), where("alias", "==", user_alias));
+
+    let up: UserProfile | undefined = undefined;
+
+    await getDocs(q).then((qs) => {
+            if (qs.docs.length !== 0) {
+                up = UserProfile.fromFirestore(qs.docs[0], {});
+            }
+        }
+    );
+    return up;
+}

@@ -5,11 +5,14 @@ import "./Header.scss";
 import { User } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
+type HeaderState = "Home" | "Others" | "You" | "Preferences";
+
 interface Props {
-    show_search_bar?: boolean
+    show_search_bar?: boolean,
+    header_state?: HeaderState,
 }
 
-export function Header({ show_search_bar }: Props) {
+export function Header({ show_search_bar, header_state }: Props) {
     const show_search = show_search_bar ?? true;
 
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(!!auth.currentUser?.uid);
@@ -42,10 +45,10 @@ export function Header({ show_search_bar }: Props) {
                 </a>
         
                 <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="#" className="nav-link px-2 text-secondary">Home</a></li>
-                    <li><a href="#" className="nav-link px-2 text-white">Others</a></li>
-                    <li><a href="#" className="nav-link px-2 text-white">You</a></li>
-                    <li><a href="#" className="nav-link px-2 text-white">Preferences</a></li>
+                    <li><a href="/" className={"nav-link px-2 " + (header_state == "Home" ? "text-secondary" : "text-white")}>Home</a></li>
+                    <li><a href="#" className={"nav-link px-2 " + (header_state == "Others" ? "text-secondary" : "text-white")}>Others</a></li>
+                    <li><a href="#" className={"nav-link px-2 " + (header_state == "You" ? "text-secondary" : "text-white")}>You</a></li>
+                    <li><a href="#" className={"nav-link px-2 " + (header_state == "Preferences" ? "text-secondary" : "text-white")}>Preferences</a></li>
                 </ul>
         
                 {show_search ?

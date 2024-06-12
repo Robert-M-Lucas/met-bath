@@ -1,5 +1,6 @@
-import { Color, UserProfile } from "../../util/user_profile";
+import { UserProfile } from "../../util/user_profile";
 import * as Icon from 'react-bootstrap-icons';
+import { Color } from "../../util/util";
 
 interface Props {
     user_profile: UserProfile
@@ -45,7 +46,7 @@ export function BusinessCard({ user_profile }: Props) {
                     <div>
                         {user_profile.data.phone ? <p className="mb-0" style={{color: col_to_string(secondary)}}>Tel: {user_profile.data.phone}</p> : <></>}
                         <p className="mb-0" style={{color: col_to_string(secondary)}}>Mail: {user_profile.data.email}</p>
-                        {user_profile.data.website ? <p className="mb-0" style={{color: col_to_string(secondary)}}>Web: <a href={user_profile.full_url()} className="text-decoration-none">{user_profile.simple_url()}</a></p> : <></>}
+                        {user_profile.data.website ? <p className="mb-0" style={{color: col_to_string(secondary)}}>Web: <a href={user_profile.fullUrl()} className="text-decoration-none">{user_profile.simpleUrl()}</a></p> : <></>}
                         {user_profile.data.location ? <p className="mb-0" style={{color: col_to_string(secondary)}}>Location: {user_profile.data.location}</p> : <></>}
                     </div>
                     <div className="d-flex align-items-end">

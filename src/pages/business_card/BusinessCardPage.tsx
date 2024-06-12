@@ -1,27 +1,43 @@
 import { useParams } from "react-router-dom";
 import { BusinessCard } from "../../components/business_card/BusinessCard";
 import { FullscreenCenter } from "../../components/FullscreenCenter";
-import { UserProfile } from "../../util/user_profile";
+import { UserProfile, getUserProfile } from "../../util/user_profile";
 import _404Page from "../404/404";
 import { faker } from "@faker-js/faker";
+import { useState } from "react";
 
+interface Props {
+    username_mode?: boolean
+}
 
-export function BusinessCardPage() {
+export function BusinessCardPage({ username_mode }: Props) {
     const { id } = useParams();
 
-    if (id === undefined || Number.isNaN(parseInt(id)) || parseInt(id) < 0) {
+    const [userProfile, setUserProfile] = useState<UserProfile | undefined | null>(null);
+
+    if (id === undefined) {
         return <_404Page/>;
     }
 
-    const idn = parseInt(id);
+    getUserProfile(id).then((profile) => {
+        setUserProfile(profile);
+    });
 
-    faker.seed(idn);
-    const sex = faker.number.int({min: 0, max: 1});
-    const user_profile = UserProfile.fake_from_id(idn, (sex == 0 ? "male" : "female"));
-
-    return <>
-        <FullscreenCenter>
-            <BusinessCard user_profile={user_profile}/>
-        </FullscreenCenter>
-    </>
+    if (userProfile === null) {
+        return <>
+            <h1>Loading</h1>
+        </>;
+    }
+    else if (userProfile === undefined) {
+        return <>
+            <h1>User does not exist</h1>
+        </>;
+    }
+    else {
+        return <>
+            <FullscreenCenter>
+                <BusinessCard user_profile={userProfile}/>
+            </FullscreenCenter>
+        </>
+    }
 }
