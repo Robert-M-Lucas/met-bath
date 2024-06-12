@@ -1,7 +1,7 @@
 import {useParams} from "react-router-dom";
 import _404Page from "../404/404.tsx";
 import {QRCodeSVG} from "qrcode.react";
-import { UserProfile } from "../../util/user.ts";
+import { UserProfile } from "../../util/user_profile.ts";
 import { BusinessCard } from "../../components/business_card/BusinessCard.tsx";
 import IndexPage from "../index/IndexPage.tsx";
 import { faker } from "@faker-js/faker";
@@ -46,7 +46,6 @@ function UserProfilePage() {
             <div className="d-flex" style={{flex: 1}}></div>
         </div>
         <QRCodeSVG value={"https://met-bath.web.app/user/" + id} className="card-img-bottom" style={{padding: "10px", width: "200px", height: "200px"}}/>
-        <IndexPage/>
     </>);
 }
 

@@ -1,4 +1,4 @@
-import { Color, UserProfile } from "../../util/user";
+import { Color, UserProfile } from "../../util/user_profile";
 import * as Icon from 'react-bootstrap-icons';
 
 interface Props {

@@ -1,4 +1,5 @@
 import {useNavigate} from "react-router-dom";
+import { Header } from "../../components/header/Header";
 
 
 function IndexPage() {
@@ -9,6 +10,7 @@ function IndexPage() {
     };
 
     return (<>
+        <Header/>
         <button type="button" className="btn btn-outline-primary" onClick={onclick}>Random User</button>
     </>);
 }

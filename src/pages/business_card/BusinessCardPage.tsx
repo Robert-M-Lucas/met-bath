@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { BusinessCard } from "../../components/business_card/BusinessCard";
 import { FullscreenCenter } from "../../components/FullscreenCenter";
-import { UserProfile } from "../../util/user";
+import { UserProfile } from "../../util/user_profile";
 import _404Page from "../404/404";
 import { faker } from "@faker-js/faker";
 
