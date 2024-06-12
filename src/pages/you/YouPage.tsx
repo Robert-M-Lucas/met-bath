@@ -6,7 +6,7 @@ import { UserProfile, getUserProfile } from "../../util/user_profile";
 import { BusinessCard } from "../../components/business_card/BusinessCard";
 import { ChromePicker, ColorResult } from "react-color";
 import React from "react";
-import { CodeToColor, hexToRgb } from "../../util/util";
+import { CodeToColor } from "../../util/util";
 
 
 export function YouPage() {

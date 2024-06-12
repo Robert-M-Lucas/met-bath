@@ -48,7 +48,7 @@ export const router = createBrowserRouter([
     },
     {
         path: "/uid/:id/card",
-        element: <BusinessCardPage username_mode={true} />,
+        element: <BusinessCardPage username_mode={false} />,
         errorElement: <_404Page/>
     },
     {

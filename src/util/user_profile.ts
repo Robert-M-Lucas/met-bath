@@ -96,7 +96,6 @@ export class UserProfile {
         const secondary = HSVtoRGB(hue, secondary_sat, secondary_sat);
 
         return new UserProfile({
-            id: "fake_" + id,
             alias: "fake_alias",
             firstname: firstname,
             surname: lastname,

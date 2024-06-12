@@ -50,7 +50,7 @@ export function BusinessCard({ user_profile }: Props) {
                         {user_profile.data.location && <p className="mb-0" style={{color: col_to_string(secondary)}}>Location: {user_profile.data.location}</p>}
                     </div>
                     <div className="d-flex align-items-end">
-                        <a target="_blank" href={"/user/" + user_profile.data.id + "/card"}><button className="btn btn-outline-secondary d-flex align-items-center p-2" style={grey_button_css}><Icon.ShareFill/></button></a>
+                        <a target="_blank" href={"/uid/" + user_profile.docname + "/card"}><button className="btn btn-outline-secondary d-flex align-items-center p-2" style={grey_button_css}><Icon.ShareFill/></button></a>
                     </div>
                 </div>
             </div>
