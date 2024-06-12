@@ -11,9 +11,9 @@ export function BusinessCard({ user_profile }: Props) {
     const HEIGHT = 300;
     const WIDTH = HEIGHT * CARD_ASPECT_RATIO;
 
-    const foreground = user_profile.data.card_foreground ?? {r: 0, g: 0, b: 0}; 
-    const secondary = user_profile.data.card_secondary ?? {r: 128, g: 128, b: 128};
-    const background = user_profile.data.card_background ?? {r: 255, g: 255, b: 255}; 
+    const foreground = user_profile.data.card_foreground ?? UserProfile.defaultForeground(); 
+    const secondary = user_profile.data.card_secondary ?? UserProfile.defaultSecondary();
+    const background = user_profile.data.card_background ?? UserProfile.defaultBackground();
 
     const col_to_string = (rgb: Color): string => {
         return `rgb(${rgb.r},${rgb.g},${rgb.b})`
@@ -44,10 +44,10 @@ export function BusinessCard({ user_profile }: Props) {
                 </div>
                 <div className="d-flex justify-content-between">
                     <div>
-                        {user_profile.data.phone ? <p className="mb-0" style={{color: col_to_string(secondary)}}>Tel: {user_profile.data.phone}</p> : <></>}
-                        <p className="mb-0" style={{color: col_to_string(secondary)}}>Mail: {user_profile.data.email}</p>
-                        {user_profile.data.website ? <p className="mb-0" style={{color: col_to_string(secondary)}}>Web: <a href={user_profile.fullUrl()} className="text-decoration-none">{user_profile.simpleUrl()}</a></p> : <></>}
-                        {user_profile.data.location ? <p className="mb-0" style={{color: col_to_string(secondary)}}>Location: {user_profile.data.location}</p> : <></>}
+                        {user_profile.data.phone && <p className="mb-0" style={{color: col_to_string(secondary)}}>Tel: {user_profile.data.phone}</p>}
+                        {user_profile.data.email && <p className="mb-0" style={{color: col_to_string(secondary)}}>Mail: {user_profile.data.email}</p>}
+                        {user_profile.data.website && <p className="mb-0" style={{color: col_to_string(secondary)}}>Web: <a href={user_profile.fullUrl()} className="text-decoration-none">{user_profile.simpleUrl()}</a></p>}
+                        {user_profile.data.location && <p className="mb-0" style={{color: col_to_string(secondary)}}>Location: {user_profile.data.location}</p>}
                     </div>
                     <div className="d-flex align-items-end">
                         <a target="_blank" href={"/user/" + user_profile.data.id + "/card"}><button className="btn btn-outline-secondary d-flex align-items-center p-2" style={grey_button_css}><Icon.ShareFill/></button></a>

@@ -5,12 +5,12 @@ import { db } from "./firebase";
 
 
 interface UserProfileData {
-    id: string,
     alias: string,
     firstname: string,
+    middlenames?: string,
     surname: string,
     job_title: string,
-    email: string,
+    email?: string,
     location: string,
     company?: string,
     phone?: string,
@@ -23,11 +23,21 @@ interface UserProfileData {
 
 export class UserProfile {
     data: UserProfileData;
-    docname: string;
+    docname?: string;
 
-    public constructor(data: UserProfileData, docname: string) {
+    public constructor(data: UserProfileData, docname?: string) {
         this.data = data;
         this.docname = docname;
+    }
+
+    public static empty(): UserProfile {
+        return new UserProfile({
+            alias: "",
+            firstname: "",
+            surname: "",
+            job_title: "",
+            location: "",
+        });
     }
 
     public simpleUrl() {
@@ -56,10 +66,22 @@ export class UserProfile {
             return undefined;
         }
 
-        if (this.data.website.startsWith("http://") && this.data.website.startsWith("https://")) {
+        if (!(this.data.website.startsWith("http://") && this.data.website.startsWith("https://"))) {
             return "https://" + this.data.website;
         }
         return this.data.website;
+    }
+
+    public static defaultForeground(): Color {
+        return {r: 0, g: 0, b: 0};
+    }
+
+    public static defaultSecondary(): Color {
+        return {r: 128, g: 128, b: 128};
+    }
+
+    public static defaultBackground(): Color {
+        return {r: 255, g: 255, b: 255};
     }
 
     static fakeFromId(id: number, sex?: "male" | "female"): UserProfile {
@@ -90,7 +112,7 @@ export class UserProfile {
             website: faker.internet.url(),
             card_foreground: foreground,
             card_secondary: secondary,
-        }, "fake_" + id)
+        })
     }
 
     static fromFirestore(snapshot: DocumentSnapshot, options: SnapshotOptions): UserProfile | undefined {
@@ -107,9 +129,9 @@ export class UserProfile {
         }
 
         const t = new UserProfile({
-            id: data.id,
             alias: data.alias,
             firstname: data.firstname,
+            middlenames: ne(data.middle_names),
             surname: data.surname,
             job_title: data.job_title,
             email: data.email,

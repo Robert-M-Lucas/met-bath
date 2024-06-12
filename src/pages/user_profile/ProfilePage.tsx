@@ -21,13 +21,11 @@ export function ProfilePage({ user_profile }: Props) {
                 <img src={"https://randomuser.me/api/portraits/men/10.jpg"} style={{width: "200px", height: "200px", marginRight: "3rem", borderRadius: "50%"}}></img>
             </div>
             <div className="d-block" style={{maxWidth: "800px", minWidth: "800px"}}>
-                {user_profile.data.about ? 
+                {user_profile.data.about &&
                 <>
                     <h1 style={{marginTop: "6rem"}}>About</h1>
                     <p style={{whiteSpace: "pre-wrap"}}>{user_profile.data.about}</p>
-                </> :
-                <></>
-                }
+                </>}
             </div>
             <div className="d-flex" style={{flex: 1}}></div>
         </div>

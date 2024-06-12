@@ -59,12 +59,10 @@ export function Header({ show_search_bar, header_state }: Props) {
                     <li><a href="/preferences" className={"nav-link px-2 " + (header_state == "Preferences" ? "text-secondary" : "text-white")}>Preferences</a></li>
                 </ul>
         
-                {show_search ?
+                {show_search &&
                 <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-                    <input type="search" id="inputID" className="form-control form-control-x text-bg-dark" placeholder="Search people..." aria-label="Search"/>
-                </form> :
-                <></>
-                }
+                    <input type="search" id="headerSearch" className="form-control text-bg-dark" placeholder="Search people..." aria-label="Search"/>
+                </form>}
                 
             
                 <div className="text-end d-flex align-items-center">
@@ -72,7 +70,7 @@ export function Header({ show_search_bar, header_state }: Props) {
                     <div style={{width: "10px"}}></div>
                     {isLoggedIn ? 
                     <button type="button" className="btn btn-outline-secondary" onClick={logout_click}>Logout</button> :
-                    <button type="button" className="btn btn-primary" onClick={login_click}>Login</button>
+                    <button type="button" className="btn btn-primary" onClick={login_click}>Login/Signup</button>
                     }
                 </div>
             </div>
