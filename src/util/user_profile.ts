@@ -114,7 +114,7 @@ export class UserProfile {
             website: faker.internet.url(),
             card_foreground: foreground,
             card_secondary: secondary,
-            card_background: this.defaultForeground(),
+            card_background: this.defaultBackground(),
         })
     }
 
@@ -154,7 +154,7 @@ export class UserProfile {
         return {
             alias: this.data.alias,
             firstname: this.data.firstname,
-            middlenames: this.data.middlenames ?? "",
+            middle_names: this.data.middlenames ?? "",
             surname: this.data.surname,
             job_title: this.data.job_title,
             email: this.data.email ?? "",
