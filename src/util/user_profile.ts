@@ -134,7 +134,7 @@ export class UserProfile {
         const t = new UserProfile({
             alias: data.alias,
             firstname: data.firstname,
-            middlenames: ne(data.middle_names),
+            middle_names: ne(data.middle_names),
             surname: data.surname,
             job_title: data.job_title,
             email: data.email,
