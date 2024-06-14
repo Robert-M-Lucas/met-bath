@@ -4,7 +4,6 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { Header } from "../../components/header/Header";
 import { BusinessCard } from "../../components/business_card/BusinessCard";
 import { UserProfile } from "../../util/user_profile";
-import { FormEvent, useState } from "react";
 import { SearchBar } from "../../components/SearchBar";
 
 export class SearchOptions {
