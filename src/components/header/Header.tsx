@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { signInWithGoogle } from "../../util/authentication";
 import { auth } from "../../util/firebase";
 import "./Header.scss";
 import { User } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { getUserProfile } from "../../util/user_profile";
+import { SearchOptions } from "../../pages/search/SearchPage";
 
 type HeaderState = "Home" | "Others" | "You" | "Preferences";
 
@@ -19,6 +20,8 @@ export function Header({ show_search_bar, header_state }: Props) {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(!!auth.currentUser?.uid);
     // displayName is optional, an account may not have a displayName but is logged in
     const [displayName, setDisplayName] = useState<string | null | undefined>(auth.currentUser?.displayName);
+
+    const [searchVal, setSearchVal] = useState<string>("");
 
     const navigate = useNavigate();
 
@@ -45,6 +48,14 @@ export function Header({ show_search_bar, header_state }: Props) {
         navigate("/");
     };
 
+    const search = (e: FormEvent<HTMLFormElement>) => {
+        e.stopPropagation();
+        e.preventDefault();
+        e.bubbles = false;
+
+        navigate(new SearchOptions(searchVal).toURL());
+    };
+    
     return <header className="p-3 text-bg-dark">
         <div className="container">
             <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -60,8 +71,8 @@ export function Header({ show_search_bar, header_state }: Props) {
                 </ul>
         
                 {show_search &&
-                <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-                    <input type="search" id="headerSearch" className="form-control text-bg-dark" placeholder="Search people..." aria-label="Search"/>
+                <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" onSubmit={search}>
+                    <input type="search" onChange={(e) => { setSearchVal(e.currentTarget.value); }} id="headerSearch" className="form-control text-bg-dark" placeholder="Search people..." aria-label="Search"/>
                 </form>}
                 
             

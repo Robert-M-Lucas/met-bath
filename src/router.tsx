@@ -7,6 +7,7 @@ import { FakeUserProfilePage } from "./pages/user_profile/FakeUserProfilePage.ts
 import { YouPage } from "./pages/you/YouPage.tsx";
 import { OthersPage } from "./pages/others/OthersPage.tsx";
 import { PreferencesPage } from "./pages/preferences/PreferencesPage.tsx";
+import { SearchPage } from "./pages/search/SearchPage.tsx";
 
 // ? Routing - see https://reactrouter.com/en/main
 
@@ -54,6 +55,11 @@ export const router = createBrowserRouter([
     {
         path: "/user/:id/card",
         element: <BusinessCardPage username_mode={true} />,
+        errorElement: <_404Page/>
+    },
+    {
+        path: "/search/:s",
+        element: <SearchPage/>,
         errorElement: <_404Page/>
     },
 ]);

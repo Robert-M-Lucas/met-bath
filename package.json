@@ -12,6 +12,7 @@
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
+    "@badrap/result": "^0.2.13",
     "@types/papaparse": "^5.3.14",
     "@types/react-color": "^3.0.12",
     "@types/strftime": "^0.9.8",
@@ -21,6 +22,7 @@
     "multi-range-slider-react": "^2.0.7",
     "papaparse": "^5.4.1",
     "qrcode.react": "^3.1.0",
+    "qs": "^6.12.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.2",
     "react-bootstrap-icons": "^1.11.4",

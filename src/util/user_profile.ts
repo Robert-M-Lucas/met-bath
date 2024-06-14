@@ -114,7 +114,7 @@ export class UserProfile {
             website: faker.internet.url(),
             card_foreground: foreground,
             card_secondary: secondary,
-            card_background: this.defaultForeground(),
+            card_background: this.defaultBackground(),
         })
     }
 
