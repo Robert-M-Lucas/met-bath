@@ -51,7 +51,7 @@ export function YouPage() {
 
     const updateAlias = (val: string) => { userProfile.data.alias = val; }
     const updateFirstName = (val: string) => { userProfile.data.firstname = val; }
-    const updateMiddleNames = (val: string) => { userProfile.data.middlenames = ne(val); }
+    const updateMiddleNames = (val: string) => { userProfile.data.middle_names = ne(val); }
     const updateSurname = (val: string) => { userProfile.data.surname = val; }
     const updateJobTitle = (val: string) => { userProfile.data.job_title = val; }
     const updateEmail = (val: string) => { userProfile.data.email = ne(val); }
@@ -112,7 +112,7 @@ export function YouPage() {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="exampleInputEmail1" className="form-label">Middle Name(s)</label>
-                    <input value={userProfile.data.middlenames ?? ""} onChange={f(updateMiddleNames)} type="email" className="form-control" id="exampleInputEmail1" placeholder="Optional - alphabetic and spaces"/>
+                    <input value={userProfile.data.middle_names ?? ""} onChange={f(updateMiddleNames)} type="email" className="form-control" id="exampleInputEmail1" placeholder="Optional - alphabetic and spaces"/>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="exampleInputEmail1" className="form-label">Surname</label>

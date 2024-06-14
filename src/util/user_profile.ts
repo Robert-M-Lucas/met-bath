@@ -7,7 +7,7 @@ import { db } from "./firebase";
 interface UserProfileData {
     alias: string,
     firstname: string,
-    middlenames?: string,
+    middle_names?: string,
     surname: string,
     job_title: string,
     email?: string,
@@ -154,7 +154,7 @@ export class UserProfile {
         return {
             alias: this.data.alias,
             firstname: this.data.firstname,
-            middlenames: this.data.middlenames ?? "",
+            middle_names: this.data.middle_names ?? "",
             surname: this.data.surname,
             job_title: this.data.job_title,
             email: this.data.email ?? "",
