@@ -1,11 +1,9 @@
-import { useContext } from "react";
-import { LanguageContext } from "../../main";
 import "./styles.scss"
 import howItWorksImg from "./assets/img/how_it_works.png";
 
 export function NewIndexPage() {
     // console.log(useContext(LanguageContext));
-    const {translation} = useContext(LanguageContext)!;
+    // const {translation} = useContext(LanguageContext)!;
     return <>
     <header className="homepage-start-background">
         <div className="container px-4 px-lg-5 h-100">
