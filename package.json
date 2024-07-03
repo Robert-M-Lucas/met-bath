@@ -12,6 +12,7 @@
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
+    "@babel/runtime": "^7.24.7",
     "@badrap/result": "^0.2.13",
     "@types/papaparse": "^5.3.14",
     "@types/react-color": "^3.0.12",
