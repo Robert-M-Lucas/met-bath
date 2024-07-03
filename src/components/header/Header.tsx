@@ -60,12 +60,16 @@ export function Header({ show_search_bar, header_state }: Props) {
         navigate(new SearchOptions(searchVal).toURL());
     };
 
-    const setJapanese = () => {
+    const setJapanese = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+        e.preventDefault();
+        e.stopPropagation();
         setTranslation(JP_TRANSLATIONS);
         return false;
     };
 
-    const setEnglish = () => {
+    const setEnglish = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+        e.preventDefault();
+        e.stopPropagation();
         setTranslation(EN_TRANSLATIONS);
         return false;
     }

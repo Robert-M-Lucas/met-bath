@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useReducer, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useReducer, useState } from "react";
 import { Header } from "../../components/header/Header";
 import { auth } from "../../util/firebase";
 import { useNavigate } from "react-router-dom";
@@ -7,10 +7,13 @@ import { BusinessCard } from "../../components/business_card/BusinessCard";
 import { ChromePicker, ColorResult } from "react-color";
 import React from "react";
 import { CodeToColor, ColorToCode } from "../../util/util";
+import { LanguageContext } from "../../main";
 
 
 export function YouPage() {
     const navigate = useNavigate();
+    const {translation: t} = useContext(LanguageContext)!;
+
 
     const [userProfile, setUserProfile] = useState<UserProfile>(UserProfile.empty());
     const [, forceUpdate] = useReducer(x => x + 1, 0);
@@ -102,82 +105,82 @@ export function YouPage() {
             <h1>Profile creation page</h1>
             <form>
                 <div className="mb-3">
-                    <label htmlFor="exampleInputEmail1" className="form-label">Username</label>
-                    <input value={userProfile.data.alias ?? ""} onChange={f(updateAlias)} type="email" className="form-control" id="exampleInputEmail1" placeholder="Required - alphanumeric and underscores"></input>
-                    <div id="emailHelp" className="form-text">This is the unique, user-readable name by which people can find you</div>
+                    <label htmlFor="exampleInputEmail1" className="form-label">{ t.USERNAME_LABEL }</label>
+                    <input value={userProfile.data.alias ?? ""} onChange={f(updateAlias)} type="email" className="form-control" id="exampleInputEmail1" placeholder={t.REQUIRED_ALPHANUMERIC_UNDERSCORE}></input>
+                    <div id="emailHelp" className="form-text">{ t.USERNAME_DESCRIPTION }</div>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="exampleInputEmail1" className="form-label">First Name</label>
-                    <input value={userProfile.data.firstname ?? ""} onChange={f(updateFirstName)} type="email" className="form-control" id="exampleInputEmail1" placeholder="Required - alphabetic"/>
+                    <label htmlFor="exampleInputEmail1" className="form-label">{ t.FIRST_NAME_LABEL }</label>
+                    <input value={userProfile.data.firstname ?? ""} onChange={f(updateFirstName)} type="email" className="form-control" id="exampleInputEmail1" placeholder={ t.REQUIRED_ALPHABETIC }/>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="exampleInputEmail1" className="form-label">Middle Name(s)</label>
-                    <input value={userProfile.data.middle_names ?? ""} onChange={f(updateMiddleNames)} type="email" className="form-control" id="exampleInputEmail1" placeholder="Optional - alphabetic and spaces"/>
+                    <label htmlFor="exampleInputEmail1" className="form-label">{ t.MIDDLE_NAMES_LABEL }</label>
+                    <input value={userProfile.data.middle_names ?? ""} onChange={f(updateMiddleNames)} type="email" className="form-control" id="exampleInputEmail1" placeholder={ t.OPTIONAL_ALPHABETIC_SPACES }/>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="exampleInputEmail1" className="form-label">Surname</label>
-                    <input value={userProfile.data.surname ?? ""} onChange={f(updateSurname)} type="email" className="form-control" id="exampleInputEmail1" placeholder="Required - alphabetic"/>
+                    <label htmlFor="exampleInputEmail1" className="form-label">{ t.SURNAME_LABEL }</label>
+                    <input value={userProfile.data.surname ?? ""} onChange={f(updateSurname)} type="email" className="form-control" id="exampleInputEmail1" placeholder={ t.REQUIRED_ALPHABETIC }/>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="exampleInputEmail1" className="form-label">Job Title</label>
-                    <input value={userProfile.data.job_title ?? ""} onChange={f(updateJobTitle)} type="email" className="form-control" id="exampleInputEmail1" placeholder="Required - alphabetic and spaces"/>
+                    <label htmlFor="exampleInputEmail1" className="form-label">{ t.JOB_TITLE_LABEL }</label>
+                    <input value={userProfile.data.job_title ?? ""} onChange={f(updateJobTitle)} type="email" className="form-control" id="exampleInputEmail1" placeholder={ t.REQUIRED_ALPHABETIC_SPACES }/>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="exampleInputEmail1" className="form-label">Email</label>
-                    <input value={userProfile.data.email ?? ""} onChange={f(updateEmail)} type="email" className="form-control" id="exampleInputEmail1" placeholder="Optional - valid email"/>
-                    <div id="emailHelp" className="form-text">Contact email shown on your profile</div>
+                    <label htmlFor="exampleInputEmail1" className="form-label">{ t.EMAIL_LABEL }</label>
+                    <input value={userProfile.data.email ?? ""} onChange={f(updateEmail)} type="email" className="form-control" id="exampleInputEmail1" placeholder={ t.OPTIONAL }/>
+                    <div id="emailHelp" className="form-text">{ t.EMAIL_DESCRIPTION }</div>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="exampleInputEmail1" className="form-label">Location</label>
-                    <input value={userProfile.data.location ?? ""} onChange={f(updateLocation)} type="email" className="form-control" id="exampleInputEmail1" placeholder="Optional - alphanumeric"/>
+                    <label htmlFor="exampleInputEmail1" className="form-label">{ t.LOCAITON_LABEL }</label>
+                    <input value={userProfile.data.location ?? ""} onChange={f(updateLocation)} type="email" className="form-control" id="exampleInputEmail1" placeholder={ t.OPTIONAL }/>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="exampleInputEmail1" className="form-label">Company</label>
-                    <input value={userProfile.data.company ?? ""} onChange={f(updateCompany)} type="email" className="form-control" id="exampleInputEmail1" placeholder="Optional - alphanumeric"/>
+                    <label htmlFor="exampleInputEmail1" className="form-label">{ t.COMPANY_LABEL }</label>
+                    <input value={userProfile.data.company ?? ""} onChange={f(updateCompany)} type="email" className="form-control" id="exampleInputEmail1" placeholder={ t.OPTIONAL }/>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="exampleInputEmail1" className="form-label">Phone Number</label>
-                    <input value={userProfile.data.phone ?? ""} onChange={f(updatePhoneNumber)} type="email" className="form-control" id="exampleInputEmail1" placeholder="Optional - alphanumeric and spaces"/>
+                    <label htmlFor="exampleInputEmail1" className="form-label">{ t.PHONE_NUMBER_LABEL}</label>
+                    <input value={userProfile.data.phone ?? ""} onChange={f(updatePhoneNumber)} type="email" className="form-control" id="exampleInputEmail1" placeholder={ t.OPTIONAL }/>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="exampleInputEmail1" className="form-label">Website</label>
-                    <input value={userProfile.data.website ?? ""} onChange={f(updateWebsite)} type="email" className="form-control" id="exampleInputEmail1" placeholder="Optional - valid website"/>
+                    <label htmlFor="exampleInputEmail1" className="form-label">{ t.WEBSITE_LABEL }</label>
+                    <input value={userProfile.data.website ?? ""} onChange={f(updateWebsite)} type="email" className="form-control" id="exampleInputEmail1" placeholder={ t.OPTIONAL }/>
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="exampleInputEmail1" className="form-label">About</label>
-                    <textarea value={userProfile.data.about ?? ""} onChange={updateAbout} className="form-control" id="exampleInputEmail1" placeholder="Optional - alphanumeric and spaces"/>
-                    <div id="emailHelp" className="form-text">Some extra information about you - not shown on your card</div>
+                    <label htmlFor="exampleInputEmail1" className="form-label">{ t.ABOUT_LABEL }</label>
+                    <textarea value={userProfile.data.about ?? ""} onChange={updateAbout} className="form-control" id="exampleInputEmail1" placeholder={ t.OPTIONAL }/>
+                    <div id="emailHelp" className="form-text">{ t.ABOUT_DESCRIPTION }</div>
                 </div>
                 <div className="mb-3">
                     <div className="row pb-4">
                         <div className="col d-flex justify-content-center">
                             <div className="text-center">
-                                <p>Card foreground colour</p>
+                                <p>{ t.CARD_FOREGROUND_LABEL }</p>
                                 <ColorPicker onChange={updateForegroundColor} color={ColorToCode(userProfile.data.card_foreground ?? UserProfile.defaultForeground())}/>
                             </div>
                         </div>
                         <div className="col d-flex justify-content-center">
                             <div className="text-center">
-                                <p>Card secondary colour</p>
+                                <p>{ t.CARD_SECONDARY_LABEL }</p>
                                 <ColorPicker onChange={updateSecondaryColor} color={ColorToCode(userProfile.data.card_secondary ?? UserProfile.defaultSecondary())}/>
                             </div>
                         </div>
                         <div className="col d-flex justify-content-center">
                             <div className="text-center">
-                                <p>Card background colour</p>
+                                <p>{ t.CARD_BACKGROUND_LABEL }</p>
                                 <ColorPicker onChange={updateBackgroundColor} color={ColorToCode(userProfile.data.card_background ?? UserProfile.defaultBackground())}/>
                             </div>
                         </div>
                     </div>
-                    <button className="btn btn-outline-danger w-100" type="button" onClick={resetColors}>Reset Colours</button>
+                    <button className="btn btn-outline-danger w-100" type="button" onClick={resetColors}>{ t.RESET_COLOURS_LINK }</button>
                 </div>
 
-                <p>Card preview:</p>
+                <p>{ t.CARD_PREVIEW_LABEL }:</p>
                 {cardPreview}
 
                 <br/>
 
-                <button className="btn btn-outline-success" type="button" onClick={saveChanges}>Save</button>
+                <button className="btn btn-outline-success" type="button" onClick={saveChanges}>{ t.SAVE_BUTTON }</button>
             </form>
             <div className="mb-5"></div>
         </div>

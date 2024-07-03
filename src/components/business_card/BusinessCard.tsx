@@ -1,12 +1,16 @@
 import { UserProfile } from "../../util/user_profile";
 import * as Icon from 'react-bootstrap-icons';
 import { Color } from "../../util/util";
+import { useContext } from "react";
+import { LanguageContext } from "../../main";
 
 interface Props {
     user_profile: UserProfile
 }
 
 export function BusinessCard({ user_profile }: Props) {
+    const {translation: t} = useContext(LanguageContext)!;
+
     const CARD_ASPECT_RATIO = 1.65;
     const HEIGHT = 300;
     const WIDTH = HEIGHT * CARD_ASPECT_RATIO;
@@ -44,10 +48,10 @@ export function BusinessCard({ user_profile }: Props) {
                 </div>
                 <div className="d-flex justify-content-between">
                     <div>
-                        {user_profile.data.phone && <p className="mb-0" style={{color: col_to_string(secondary)}}>Tel: {user_profile.data.phone}</p>}
-                        {user_profile.data.email && <p className="mb-0" style={{color: col_to_string(secondary)}}>Mail: {user_profile.data.email}</p>}
-                        {user_profile.data.website && <p className="mb-0" style={{color: col_to_string(secondary)}}>Web: <a href={user_profile.fullUrl()} className="text-decoration-none">{user_profile.simpleUrl()}</a></p>}
-                        {user_profile.data.location && <p className="mb-0" style={{color: col_to_string(secondary)}}>Location: {user_profile.data.location}</p>}
+                        {user_profile.data.phone && <p className="mb-0" style={{color: col_to_string(secondary)}}>{ t.TEL_LABEL }: {user_profile.data.phone}</p>}
+                        {user_profile.data.email && <p className="mb-0" style={{color: col_to_string(secondary)}}>{ t.MAIL_LABEL }: {user_profile.data.email}</p>}
+                        {user_profile.data.website && <p className="mb-0" style={{color: col_to_string(secondary)}}>{ t.WEB_LABEL }: <a href={user_profile.fullUrl()} className="text-decoration-none">{user_profile.simpleUrl()}</a></p>}
+                        {user_profile.data.location && <p className="mb-0" style={{color: col_to_string(secondary)}}>{ t.LOCATION_LABEL }: {user_profile.data.location}</p>}
                     </div>
                     <div className="d-flex align-items-end">
                         <a target="_blank" href={"/uid/" + user_profile.docname + "/card"}><button className="btn btn-outline-secondary d-flex align-items-center p-2" style={grey_button_css}><Icon.ShareFill/></button></a>
