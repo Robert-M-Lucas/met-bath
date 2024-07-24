@@ -6,10 +6,11 @@ import { QRCodeSVG } from "qrcode.react";
 import { LanguageContext } from "../../main";
 
 interface Props {
-    user_profile: UserProfile
+    user_profile: UserProfile,
+    enable_click: boolean
 }
 
-export function BusinessCard({ user_profile }: Props) {
+export function BusinessCard({ user_profile, enable_click }: Props) {
     const {translation: t} = useContext(LanguageContext)!;
 
     const CARD_ASPECT_RATIO = 1.65;
@@ -38,9 +39,11 @@ export function BusinessCard({ user_profile }: Props) {
     //     "--bs-btn-disabled-border-color": greyed_string
     // } as React.CSSProperties;
 
+    const cardOnClick = enable_click ? () => { window.open("/uid/" + user_profile.docname + "/card", "_blank") } : undefined;
+
     return <>
         <div className="card" style={{width: `${WIDTH}px`, height: `${HEIGHT}px`, background: col_to_string(background), color: col_to_string(foreground), borderRadius: 0}}>
-            <div className="card-body d-flex justify-content-between flex-column" style={{padding: "2rem"}} onClick={() => { window.open("/uid/" + user_profile.docname + "/card", "_blank") }}>
+            <div className="card-body d-flex justify-content-between flex-column" style={{padding: "2rem"}} onClick={cardOnClick}>
                 <div>
                     <h2 className="card-title" style={{color: col_to_string(foreground)}}>{user_profile.data.firstname} {user_profile.data.surname}</h2>
                     {user_profile.data.company ? 

@@ -4,6 +4,7 @@ import { FullscreenCenter } from "../../components/FullscreenCenter";
 import { UserProfile, getUserProfile, getUserProfileByAlias } from "../../util/user_profile";
 import _404Page from "../404/404";
 import { useState } from "react";
+import { Loading } from "../../components/Loading";
 
 interface Props {
     username_mode?: boolean
@@ -34,9 +35,7 @@ export function BusinessCardPage({ username_mode }: Props) {
     }
 
     if (userProfile === null) {
-        return <>
-            <h1>Loading</h1>
-        </>;
+        return <Loading/>;
     }
     else if (userProfile === undefined) {
         return <>
@@ -46,7 +45,7 @@ export function BusinessCardPage({ username_mode }: Props) {
     else {
         return <>
             <FullscreenCenter>
-                <BusinessCard user_profile={userProfile}/>
+                <BusinessCard user_profile={userProfile} enable_click={false}/>
             </FullscreenCenter>
         </>
     }

@@ -50,7 +50,7 @@ export function PreferencesPage() {
     }
 
     
-    const cardPreview = BusinessCard({user_profile: userProfile});
+    const cardPreview = BusinessCard({user_profile: userProfile, enable_click: false});
 
     const updateAlias = (val: string) => { userProfile.data.alias = val; }
     const updateFirstName = (val: string) => { userProfile.data.firstname = val; }
