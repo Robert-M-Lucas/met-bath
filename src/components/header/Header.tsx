@@ -41,7 +41,7 @@ export function Header({ show_search_bar, header_state }: Props) {
                 }
             }
         });
-    }, []);
+    });
 
     const login_click = async () => {
         await signInWithGoogle();
@@ -81,6 +81,8 @@ export function Header({ show_search_bar, header_state }: Props) {
     else {
         youLink = "";
     }
+
+
 
     return <header className="p-3 text-bg-dark">
         <div className="container">

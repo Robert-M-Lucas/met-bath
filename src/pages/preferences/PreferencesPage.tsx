@@ -50,7 +50,7 @@ export function PreferencesPage() {
     }
 
     
-    const cardPreview = BusinessCard({user_profile: userProfile});
+    const cardPreview = BusinessCard({user_profile: userProfile, enable_click: false, can_connect: false});
 
     const updateAlias = (val: string) => { userProfile.data.alias = val; }
     const updateFirstName = (val: string) => { userProfile.data.firstname = val; }
@@ -102,7 +102,8 @@ export function PreferencesPage() {
     return <>
         <Header header_state="Preferences"/>
         <div className="container pt-3">
-            <h1>Profile creation page</h1>
+            <h1 className="pb-0 mb-0">Profile creation page</h1>
+            <p className="text-muted">Permanent UID: {auth.currentUser?.uid}</p>
             <form>
                 <div className="mb-3">
                     <label htmlFor="exampleInputEmail1" className="form-label">{ t.USERNAME_LABEL }</label>

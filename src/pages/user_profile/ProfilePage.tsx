@@ -4,7 +4,7 @@ import { auth } from "../../util/firebase";
 import { UserProfile } from "../../util/user_profile";
 
 interface Props {
-    user_profile: UserProfile
+    user_profile: UserProfile,
 }
 
 export function ProfilePage({ user_profile }: Props) {
@@ -21,7 +21,7 @@ export function ProfilePage({ user_profile }: Props) {
         <div style={{height: "6rem"}}></div>
         <div className="d-flex justify-content-between align-items-center">
             <div className="flex-grow-1" style={{height: "1px", background: "rgba(0, 0, 0, 0.176)"}}></div>
-                <BusinessCard user_profile={user_profile}/>
+                <BusinessCard user_profile={user_profile} enable_click={true} can_connect={true}/>
             <div className="flex-grow-1" style={{height: "1px", background: "rgba(0, 0, 0, 0.176)"}}></div>
         </div>
         <div style={{height: "1rem"}}></div>
