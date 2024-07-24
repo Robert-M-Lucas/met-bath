@@ -3,6 +3,7 @@ import { Color, ColorToCode } from "../../util/util";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { QRCodeSVG } from "qrcode.react";
+import { LanguageContext } from "../../main";
 
 interface Props {
     user_profile: UserProfile
