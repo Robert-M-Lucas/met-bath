@@ -1,11 +1,13 @@
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useContext, useEffect, useState } from "react";
 import { signInWithGoogle } from "../../util/authentication";
 import { auth } from "../../util/firebase";
 import "./Header.scss";
 import { User } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getUserProfile } from "../../util/user_profile";
 import { SearchOptions } from "../../pages/search/SearchPage";
+import { LanguageContext } from "../../main";
+import { EN_TRANSLATIONS, JP_TRANSLATIONS } from "../../translations/translations";
 
 type HeaderState = "Home" | "Others" | "You" | "Preferences";
 
@@ -15,6 +17,8 @@ interface Props {
 }
 
 export function Header({ show_search_bar, header_state }: Props) {
+    const {translation: t, setTranslation} = useContext(LanguageContext)!;
+
     const show_search = show_search_bar ?? true;
 
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(!!auth.currentUser?.uid);
@@ -56,24 +60,43 @@ export function Header({ show_search_bar, header_state }: Props) {
         navigate(new SearchOptions(searchVal).toURL());
     };
 
+    const setJapanese = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setTranslation(JP_TRANSLATIONS);
+        return false;
+    };
+
+    const setEnglish = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setTranslation(EN_TRANSLATIONS);
+        return false;
+    }
+
     return <header className="p-3 text-bg-dark">
         <div className="container">
             <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 {/* <a href="/" className="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
                     <svg className="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlinkHref="#bootstrap"></use></svg>
                 </a> */}
-                <h3 className="mb-0 me-5">MET</h3>
+                <h3 className="mb-0 me-5">{t.MET_NAME}</h3>
         
                 <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="/" className={"nav-link px-2 " + (header_state == "Home" ? "text-secondary" : "text-white")}>Home</a></li>
-                    <li><a href="/others" className={"nav-link px-2 " + (header_state == "Others" ? "text-secondary" : "text-white")}>Others</a></li>
-                    <li><a href="/you" className={"nav-link px-2 " + (header_state == "You" ? "text-secondary" : "text-white")}>You</a></li>
-                    <li><a href="/preferences" className={"nav-link px-2 " + (header_state == "Preferences" ? "text-secondary" : "text-white")}>Preferences</a></li>
+                    <li><Link to="/" className={"nav-link px-2 " + (header_state == "Home" ? "text-secondary" : "text-white")}>{t.HOME_PAGE_LINK}</Link></li>
+                    <li><Link to="/others" className={"nav-link px-2 " + (header_state == "Others" ? "text-secondary" : "text-white")}>{t.OTHERS_PAGE_LINK}</Link></li>
+                    <li><Link to="/you" className={"nav-link px-2 " + (header_state == "You" ? "text-secondary" : "text-white")}>{t.YOU_PAGE_LINK}</Link></li>
+                    <li><Link to="/preferences" className={"nav-link px-2 " + (header_state == "Preferences" ? "text-secondary" : "text-white")}>{t.PREFERENCES_PAGE_LINK}</Link></li>
+                    { t.self == "en" ? 
+                        <li><a href="#" onClick={setJapanese} className={"nav-link px-2 text-white"}>日本語 Japanese</a></li>
+                        :
+                        <li><a href="#" onClick={setEnglish} className={"nav-link px-2 text-white"}>English 英語</a></li>
+                    }
                 </ul>
         
                 {show_search &&
                 <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" onSubmit={search}>
-                    <input type="search" onChange={(e) => { setSearchVal(e.currentTarget.value); }} id="headerSearch" className="form-control text-bg-dark" placeholder="Search people..." aria-label="Search"/>
+                    <input type="search" onChange={(e) => { setSearchVal(e.currentTarget.value); }} id="headerSearch" className="form-control text-bg-dark" placeholder={t.SEARCH_PEOPLE_ELLIPSES} aria-label="Search"/>
                 </form>}
                 
             
@@ -81,8 +104,8 @@ export function Header({ show_search_bar, header_state }: Props) {
                     {displayName && <span className="pb-0 mb-0">{displayName}</span>}
                     <div style={{width: "10px"}}></div>
                     {isLoggedIn ? 
-                    <button type="button" className="btn btn-outline-secondary" onClick={logout_click}>Logout</button> :
-                    <button type="button" className="btn btn-primary" onClick={login_click}>Login/Signup</button>
+                    <button type="button" className="btn btn-outline-secondary" onClick={logout_click}>{t.LOGOUT_LINK}</button> :
+                    <button type="button" className="btn btn-primary" onClick={login_click}>{t.LOGIN_OR_SIGNUP_LINK}</button>
                     }
                 </div>
             </div>
