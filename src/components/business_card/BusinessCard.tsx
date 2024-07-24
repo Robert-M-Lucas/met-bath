@@ -1,6 +1,6 @@
 import { addUserConnection, isUserAConnection, removeUserConnection, UserProfile } from "../../util/user_profile";
 import { Color, ColorToCode } from "../../util/util";
-import { useContext, useReducer, useState } from "react";
+import { useContext, useState } from "react";
 // import { useNavigate } from "react-router-dom";
 import { QRCodeSVG } from "qrcode.react";
 import { LanguageContext } from "../../main";
@@ -25,7 +25,7 @@ export function BusinessCard({ user_profile, enable_click, can_connect }: Props)
     let connectCallback;
     if (isConnection !== undefined &&  isConnection !== null && auth.currentUser) {
         if (isConnection) {
-            connectCallback = async (e) => { 
+            connectCallback = async (e: React.MouseEvent<HTMLButtonElement>) => { 
                 e.stopPropagation();
                 e.preventDefault();
                 e.bubbles = false;
@@ -34,7 +34,7 @@ export function BusinessCard({ user_profile, enable_click, can_connect }: Props)
             };
         }
         else {
-            connectCallback = async (e) => { 
+            connectCallback = async (e: React.MouseEvent<HTMLButtonElement>) => { 
                 e.stopPropagation();
                 e.preventDefault();
                 e.bubbles = false;
@@ -44,7 +44,7 @@ export function BusinessCard({ user_profile, enable_click, can_connect }: Props)
         }
     }
     else {
-        connectCallback = (e) => {
+        connectCallback = (e: React.MouseEvent<HTMLButtonElement>) => {
             e.stopPropagation();
             e.preventDefault();
             e.bubbles = false;

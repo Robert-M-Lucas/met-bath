@@ -45,7 +45,7 @@ export function BusinessCardPage({ username_mode }: Props) {
     else {
         return <>
             <FullscreenCenter>
-                <BusinessCard user_profile={userProfile} enable_click={false}/>
+                <BusinessCard user_profile={userProfile} enable_click={false} can_connect={true}/>
             </FullscreenCenter>
         </>
     }

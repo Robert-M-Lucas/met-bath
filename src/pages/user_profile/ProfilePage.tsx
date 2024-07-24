@@ -1,8 +1,7 @@
-import { useState } from "react";
 import { BusinessCard } from "../../components/business_card/BusinessCard";
 import { Header, HeaderState } from "../../components/header/Header";
 import { auth } from "../../util/firebase";
-import { isUserAConnection, UserProfile } from "../../util/user_profile";
+import { UserProfile } from "../../util/user_profile";
 
 interface Props {
     user_profile: UserProfile,

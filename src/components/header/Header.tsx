@@ -4,7 +4,7 @@ import { auth } from "../../util/firebase";
 import "./Header.scss";
 import { User } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
-import { getAllUserConnections, getUserProfile } from "../../util/user_profile";
+import { getUserProfile } from "../../util/user_profile";
 import { SearchOptions } from "../../pages/search/SearchPage";
 import { LanguageContext } from "../../main";
 import { EN_TRANSLATIONS, JP_TRANSLATIONS } from "../../translations/translations";

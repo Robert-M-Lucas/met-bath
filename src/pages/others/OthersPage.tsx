@@ -20,36 +20,36 @@ export function OthersPage() {
                 <div className="row mb-4">
                     <div className="col-6">
                         <Nav.Link as={Link} to="/fakeuser/0" className="text-decoration-none">
-                            <BusinessCard enable_click={false} user_profile={UserProfile.fakeFromId(0)}/>
+                            <BusinessCard can_connect={false} enable_click={false} user_profile={UserProfile.fakeFromId(0)}/>
                         </Nav.Link>
                     </div>
                     <div className="col-6">
                         <Link to="/fakeuser/1" className="text-decoration-none">
-                            <BusinessCard enable_click={false} user_profile={UserProfile.fakeFromId(1)}/>
+                            <BusinessCard can_connect={false} enable_click={false} user_profile={UserProfile.fakeFromId(1)}/>
                         </Link>
                     </div>
                 </div>
                 <div className="row mb-4">
                     <div className="col-6">
                         <Link to="/fakeuser/2" className="text-decoration-none">
-                            <BusinessCard enable_click={false} user_profile={UserProfile.fakeFromId(2)}/>
+                            <BusinessCard can_connect={false} enable_click={false} user_profile={UserProfile.fakeFromId(2)}/>
                         </Link>
                     </div>
                     <div className="col-6">
                         <Link to="/fakeuser/3" className="text-decoration-none">
-                            <BusinessCard enable_click={false} user_profile={UserProfile.fakeFromId(3)}/>
+                            <BusinessCard can_connect={false} enable_click={false} user_profile={UserProfile.fakeFromId(3)}/>
                         </Link>
                     </div>
                 </div>
                 <div className="row mb-4">
                     <div className="col-6">
                         <Link to="/fakeuser/4" className="text-decoration-none">
-                            <BusinessCard enable_click={false} user_profile={UserProfile.fakeFromId(4)}/>
+                            <BusinessCard can_connect={false} enable_click={false} user_profile={UserProfile.fakeFromId(4)}/>
                         </Link>
                     </div>
                     <div className="col-6">
                         <Link to="/fakeuser/5" className="text-decoration-none">
-                            <BusinessCard enable_click={false} user_profile={UserProfile.fakeFromId(5)}/>
+                            <BusinessCard can_connect={false} enable_click={false} user_profile={UserProfile.fakeFromId(5)}/>
                         </Link>
                     </div>
                 </div>
