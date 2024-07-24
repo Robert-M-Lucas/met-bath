@@ -1,7 +1,8 @@
 import { UserProfile } from "../../util/user_profile";
-import * as Icon from 'react-bootstrap-icons';
-import { Color } from "../../util/util";
+import { Color, ColorToCode } from "../../util/util";
 import { useContext } from "react";
+// import { useNavigate } from "react-router-dom";
+import { QRCodeSVG } from "qrcode.react";
 import { LanguageContext } from "../../main";
 
 interface Props {
@@ -19,25 +20,27 @@ export function BusinessCard({ user_profile }: Props) {
     const secondary = user_profile.data.card_secondary ?? UserProfile.defaultSecondary();
     const background = user_profile.data.card_background ?? UserProfile.defaultBackground();
 
+    // const navigate = useNavigate();
+
     const col_to_string = (rgb: Color): string => {
         return `rgb(${rgb.r},${rgb.g},${rgb.b})`
     }
 
-    const greyed_string = col_to_string(secondary);
-    const grey_button_css = {
-        "--bs-btn-color": greyed_string,
-        "--bs-btn-border-color": greyed_string,
-        "--bs-btn-hover-bg": greyed_string,
-        "--bs-btn-hover-border-color": greyed_string,
-        "--bs-btn-active-bg": greyed_string,
-        "--bs-btn-active-border-color": greyed_string,
-        "--bs-btn-disabled-color": greyed_string,
-        "--bs-btn-disabled-border-color": greyed_string
-    } as React.CSSProperties;
+    // const greyed_string = col_to_string(secondary);
+    // const grey_button_css = {
+    //     "--bs-btn-color": greyed_string,
+    //     "--bs-btn-border-color": greyed_string,
+    //     "--bs-btn-hover-bg": greyed_string,
+    //     "--bs-btn-hover-border-color": greyed_string,
+    //     "--bs-btn-active-bg": greyed_string,
+    //     "--bs-btn-active-border-color": greyed_string,
+    //     "--bs-btn-disabled-color": greyed_string,
+    //     "--bs-btn-disabled-border-color": greyed_string
+    // } as React.CSSProperties;
 
     return <>
         <div className="card" style={{width: `${WIDTH}px`, height: `${HEIGHT}px`, background: col_to_string(background), color: col_to_string(foreground), borderRadius: 0}}>
-            <div className="card-body d-flex justify-content-between flex-column" style={{padding: "2rem"}}>
+            <div className="card-body d-flex justify-content-between flex-column" style={{padding: "2rem"}} onClick={() => { window.open("/uid/" + user_profile.docname + "/card", "_blank") }}>
                 <div>
                     <h2 className="card-title" style={{color: col_to_string(foreground)}}>{user_profile.data.firstname} {user_profile.data.surname}</h2>
                     {user_profile.data.company ? 
@@ -50,12 +53,17 @@ export function BusinessCard({ user_profile }: Props) {
                     <div>
                         {user_profile.data.phone && <p className="mb-0" style={{color: col_to_string(secondary)}}>{ t.TEL_LABEL }: {user_profile.data.phone}</p>}
                         {user_profile.data.email && <p className="mb-0" style={{color: col_to_string(secondary)}}>{ t.MAIL_LABEL }: {user_profile.data.email}</p>}
-                        {user_profile.data.website && <p className="mb-0" style={{color: col_to_string(secondary)}}>{ t.WEB_LABEL }: <a href={user_profile.fullUrl()} className="text-decoration-none">{user_profile.simpleUrl()}</a></p>}
+                        {user_profile.data.website && <p className="mb-0" style={{color: col_to_string(secondary)}}>{ t.WEB_LABEL }: <a onClick={ () => window.open(user_profile.fullUrl(), "_blank") } target="_blank" className="text-decoration-none">{user_profile.simpleUrl()}</a></p>}
                         {user_profile.data.location && <p className="mb-0" style={{color: col_to_string(secondary)}}>{ t.LOCATION_LABEL }: {user_profile.data.location}</p>}
                     </div>
-                    <div className="d-flex align-items-end">
+                    <QRCodeSVG 
+                        value={"https://met-bath.web.app/uid/" + user_profile.docname} 
+                        bgColor={ColorToCode(user_profile.data.card_background)} 
+                        fgColor={ColorToCode(user_profile.data.card_secondary)}
+                    />
+                    {/* <div className="d-flex align-items-end">
                         <a target="_blank" href={"/uid/" + user_profile.docname + "/card"}><button className="btn btn-outline-secondary d-flex align-items-center p-2" style={grey_button_css}><Icon.ShareFill/></button></a>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>

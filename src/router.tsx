@@ -4,10 +4,9 @@ import IndexPage from "./pages/index/IndexPage.tsx";
 import { BusinessCardPage } from "./pages/business_card/BusinessCardPage.tsx";
 import { UserProfilePage } from "./pages/user_profile/UserProfilePage.tsx";
 import { FakeUserProfilePage } from "./pages/user_profile/FakeUserProfilePage.tsx";
-import { YouPage } from "./pages/you/YouPage.tsx";
 import { OthersPage } from "./pages/others/OthersPage.tsx";
-import { PreferencesPage } from "./pages/preferences/PreferencesPage.tsx";
 import { SearchPage } from "./pages/search/SearchPage.tsx";
+import { PreferencesPage } from "./pages/preferences/PreferencesPage.tsx";
 
 // ? Routing - see https://reactrouter.com/en/main
 
@@ -17,11 +16,11 @@ export const router = createBrowserRouter([
         element: <IndexPage />,
         errorElement: <_404Page/>
     },
-    {
-        path: "/you",
-        element: <YouPage />,
-        errorElement: <_404Page/>
-    },
+    // {
+    //     path: "/you",
+    //     element: <YouPage />,
+    //     errorElement: <_404Page/>
+    // },
     {
         path: "/others",
         element: <OthersPage />,

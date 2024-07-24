@@ -9,7 +9,7 @@ import { SearchOptions } from "../../pages/search/SearchPage";
 import { LanguageContext } from "../../main";
 import { EN_TRANSLATIONS, JP_TRANSLATIONS } from "../../translations/translations";
 
-type HeaderState = "Home" | "Others" | "You" | "Preferences";
+export type HeaderState = "Home" | "Others" | "You" | "Preferences";
 
 interface Props {
     show_search_bar?: boolean,
@@ -37,7 +37,7 @@ export function Header({ show_search_bar, header_state }: Props) {
             if (user !== null) {
                 const profile = await getUserProfile(user.uid);
                 if (profile === undefined) {
-                    navigate("/you");
+                    navigate("/preferences");
                 }
             }
         });
@@ -74,6 +74,14 @@ export function Header({ show_search_bar, header_state }: Props) {
         return false;
     }
 
+    let youLink;
+    if (auth.currentUser) {
+        youLink = "/uid/" + auth.currentUser!.uid;
+    }
+    else {
+        youLink = "";
+    }
+
     return <header className="p-3 text-bg-dark">
         <div className="container">
             <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -85,7 +93,8 @@ export function Header({ show_search_bar, header_state }: Props) {
                 <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                     <li><Link to="/" className={"nav-link px-2 " + (header_state == "Home" ? "text-secondary" : "text-white")}>{t.HOME_PAGE_LINK}</Link></li>
                     <li><Link to="/others" className={"nav-link px-2 " + (header_state == "Others" ? "text-secondary" : "text-white")}>{t.OTHERS_PAGE_LINK}</Link></li>
-                    <li><Link to="/you" className={"nav-link px-2 " + (header_state == "You" ? "text-secondary" : "text-white")}>{t.YOU_PAGE_LINK}</Link></li>
+
+                    <li><Link to={youLink} className={"nav-link px-2 " + (header_state == "You" ? "text-secondary" : "text-white")}>{t.YOU_PAGE_LINK}</Link></li>
                     <li><Link to="/preferences" className={"nav-link px-2 " + (header_state == "Preferences" ? "text-secondary" : "text-white")}>{t.PREFERENCES_PAGE_LINK}</Link></li>
                     { t.self == "en" ? 
                         <li><a href="#" onClick={setJapanese} className={"nav-link px-2 text-white"}>日本語 Japanese</a></li>
