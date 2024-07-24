@@ -1,14 +1,16 @@
 import { UserProfile } from "../../util/user_profile";
-import * as Icon from 'react-bootstrap-icons';
 import { Color, ColorToCode } from "../../util/util";
-import { QRCodeSVG } from "qrcode.react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { QRCodeSVG } from "qrcode.react";
 
 interface Props {
     user_profile: UserProfile
 }
 
 export function BusinessCard({ user_profile }: Props) {
+    const {translation: t} = useContext(LanguageContext)!;
+
     const CARD_ASPECT_RATIO = 1.65;
     const HEIGHT = 300;
     const WIDTH = HEIGHT * CARD_ASPECT_RATIO;
@@ -48,10 +50,10 @@ export function BusinessCard({ user_profile }: Props) {
                 </div>
                 <div className="d-flex justify-content-between">
                     <div>
-                        {user_profile.data.phone && <p className="mb-0" style={{color: col_to_string(secondary)}}>Tel: {user_profile.data.phone}</p>}
-                        {user_profile.data.email && <p className="mb-0" style={{color: col_to_string(secondary)}}>Mail: {user_profile.data.email}</p>}
-                        {user_profile.data.website && <p className="mb-0" style={{color: col_to_string(secondary)}}>Web: <a onClick={ () => window.open(user_profile.fullUrl(), "_blank") } target="_blank" className="text-decoration-none">{user_profile.simpleUrl()}</a></p>}
-                        {user_profile.data.location && <p className="mb-0" style={{color: col_to_string(secondary)}}>Location: {user_profile.data.location}</p>}
+                        {user_profile.data.phone && <p className="mb-0" style={{color: col_to_string(secondary)}}>{ t.TEL_LABEL }: {user_profile.data.phone}</p>}
+                        {user_profile.data.email && <p className="mb-0" style={{color: col_to_string(secondary)}}>{ t.MAIL_LABEL }: {user_profile.data.email}</p>}
+                        {user_profile.data.website && <p className="mb-0" style={{color: col_to_string(secondary)}}>{ t.WEB_LABEL }: <a onClick={ () => window.open(user_profile.fullUrl(), "_blank") } target="_blank" className="text-decoration-none">{user_profile.simpleUrl()}</a></p>}
+                        {user_profile.data.location && <p className="mb-0" style={{color: col_to_string(secondary)}}>{ t.LOCATION_LABEL }: {user_profile.data.location}</p>}
                     </div>
                     <QRCodeSVG 
                         value={"https://met-bath.web.app/uid/" + user_profile.docname} 

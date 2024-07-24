@@ -4,15 +4,19 @@ import { SearchBar } from "../../components/SearchBar";
 import { BusinessCard } from "../../components/business_card/BusinessCard";
 import { UserProfile } from "../../util/user_profile";
 import { Nav } from "react-bootstrap";
+import { useContext } from "react";
+import { LanguageContext } from "../../main";
 
 
 export function OthersPage() {
+    const {translation: t} = useContext(LanguageContext)!;
+
     return <>
         <Header show_search_bar={false} header_state="Others"/>
         <div className="w-100 d-flex justify-content-center mt-4">
             <div>
                 <SearchBar/>
-                <h1>You might know:</h1>
+                <h1>{ t.YOU_MIGHT_KNOW }:</h1>
                 <div className="row mb-4">
                     <div className="col-6">
                         <Nav.Link as={Link} to="/fakeuser/0" className="text-decoration-none">
