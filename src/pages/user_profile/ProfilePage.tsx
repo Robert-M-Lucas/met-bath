@@ -1,5 +1,6 @@
 import { BusinessCard } from "../../components/business_card/BusinessCard";
-import { Header } from "../../components/header/Header";
+import { Header, HeaderState } from "../../components/header/Header";
+import { auth } from "../../util/firebase";
 import { UserProfile } from "../../util/user_profile";
 
 interface Props {
@@ -7,8 +8,16 @@ interface Props {
 }
 
 export function ProfilePage({ user_profile }: Props) {
+    let headerState: HeaderState;
+    if (auth.currentUser && user_profile.docname === auth.currentUser.uid) {
+        headerState = "You";
+    }
+    else {
+        headerState = "Others";
+    }
+
     return (<>
-        <Header header_state="Others"/>
+        <Header header_state={headerState}/>
         <div style={{height: "6rem"}}></div>
         <div className="d-flex justify-content-between align-items-center">
             <div className="flex-grow-1" style={{height: "1px", background: "rgba(0, 0, 0, 0.176)"}}></div>
