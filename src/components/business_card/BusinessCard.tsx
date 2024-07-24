@@ -1,6 +1,8 @@
 import { UserProfile } from "../../util/user_profile";
 import * as Icon from 'react-bootstrap-icons';
-import { Color } from "../../util/util";
+import { Color, ColorToCode } from "../../util/util";
+import { QRCodeSVG } from "qrcode.react";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
     user_profile: UserProfile
@@ -14,6 +16,8 @@ export function BusinessCard({ user_profile }: Props) {
     const foreground = user_profile.data.card_foreground ?? UserProfile.defaultForeground(); 
     const secondary = user_profile.data.card_secondary ?? UserProfile.defaultSecondary();
     const background = user_profile.data.card_background ?? UserProfile.defaultBackground();
+
+    const navigate = useNavigate();
 
     const col_to_string = (rgb: Color): string => {
         return `rgb(${rgb.r},${rgb.g},${rgb.b})`
@@ -33,7 +37,7 @@ export function BusinessCard({ user_profile }: Props) {
 
     return <>
         <div className="card" style={{width: `${WIDTH}px`, height: `${HEIGHT}px`, background: col_to_string(background), color: col_to_string(foreground), borderRadius: 0}}>
-            <div className="card-body d-flex justify-content-between flex-column" style={{padding: "2rem"}}>
+            <div className="card-body d-flex justify-content-between flex-column" style={{padding: "2rem"}} onClick={() => { window.open("/uid/" + user_profile.docname + "/card", "_blank") }}>
                 <div>
                     <h2 className="card-title" style={{color: col_to_string(foreground)}}>{user_profile.data.firstname} {user_profile.data.surname}</h2>
                     {user_profile.data.company ? 
@@ -46,12 +50,17 @@ export function BusinessCard({ user_profile }: Props) {
                     <div>
                         {user_profile.data.phone && <p className="mb-0" style={{color: col_to_string(secondary)}}>Tel: {user_profile.data.phone}</p>}
                         {user_profile.data.email && <p className="mb-0" style={{color: col_to_string(secondary)}}>Mail: {user_profile.data.email}</p>}
-                        {user_profile.data.website && <p className="mb-0" style={{color: col_to_string(secondary)}}>Web: <a href={user_profile.fullUrl()} className="text-decoration-none">{user_profile.simpleUrl()}</a></p>}
+                        {user_profile.data.website && <p className="mb-0" style={{color: col_to_string(secondary)}}>Web: <a onClick={ () => window.open(user_profile.fullUrl(), "_blank") } target="_blank" className="text-decoration-none">{user_profile.simpleUrl()}</a></p>}
                         {user_profile.data.location && <p className="mb-0" style={{color: col_to_string(secondary)}}>Location: {user_profile.data.location}</p>}
                     </div>
-                    <div className="d-flex align-items-end">
+                    <QRCodeSVG 
+                        value={"https://met-bath.web.app/uid/" + user_profile.docname} 
+                        bgColor={ColorToCode(user_profile.data.card_background)} 
+                        fgColor={ColorToCode(user_profile.data.card_secondary)}
+                    />
+                    {/* <div className="d-flex align-items-end">
                         <a target="_blank" href={"/uid/" + user_profile.docname + "/card"}><button className="btn btn-outline-secondary d-flex align-items-center p-2" style={grey_button_css}><Icon.ShareFill/></button></a>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>
