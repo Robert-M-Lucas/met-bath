@@ -102,7 +102,8 @@ export function PreferencesPage() {
     return <>
         <Header header_state="Preferences"/>
         <div className="container pt-3">
-            <h1>Profile creation page</h1>
+            <h1 className="pb-0 mb-0">Profile creation page</h1>
+            <p className="text-muted">Permanent UID: {auth.currentUser?.uid}</p>
             <form>
                 <div className="mb-3">
                     <label htmlFor="exampleInputEmail1" className="form-label">{ t.USERNAME_LABEL }</label>

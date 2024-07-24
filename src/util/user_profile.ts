@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
 import { CodeToColor, Color, ColorToCode, HSVtoRGB } from "./util";
-import { DocumentSnapshot, SnapshotOptions, collection, doc, getDoc, getDocs, query, setDoc, where } from "firebase/firestore";
+import { DocumentSnapshot, SnapshotOptions, collection, deleteDoc, doc, getDoc, getDocs, query, setDoc, where } from "firebase/firestore";
 import { db } from "./firebase";
 
 
@@ -23,9 +23,9 @@ interface UserProfileData {
 
 export class UserProfile {
     data: UserProfileData;
-    docname?: string;
+    docname: string;
 
-    public constructor(data: UserProfileData, docname?: string) {
+    public constructor(data: UserProfileData, docname: string) {
         this.data = data;
         this.docname = docname;
     }
@@ -40,7 +40,7 @@ export class UserProfile {
             card_foreground: this.defaultForeground(),
             card_secondary: this.defaultSecondary(),
             card_background: this.defaultBackground(),
-        });
+        }, "sample");
     }
 
     public simpleUrl() {
@@ -115,7 +115,7 @@ export class UserProfile {
             card_foreground: foreground,
             card_secondary: secondary,
             card_background: this.defaultBackground(),
-        })
+        }, "sample")
     }
 
     static fromFirestore(snapshot: DocumentSnapshot, options: SnapshotOptions): UserProfile | undefined {
@@ -203,4 +203,34 @@ export async function setUserProfileF(user_id: string, user_profile: UserProfile
         doc(collection(db, "UserProfiles"), user_id), 
         obj
     );
+}
+
+export async function isUserAConnection(user_id: string, other_id: string): Promise<boolean> {
+    const docRef = doc(collection(db, "UserProfiles", user_id, "Connections"), other_id);
+    let found = false;
+    await getDoc(docRef).then((x) => {
+        found = x.exists();
+    }).catch(() => { found = false });
+    return found;
+}
+
+export async function addUserConnection(user_id: string, other_id: string): Promise<void> {
+    const docRef = doc(collection(db, "UserProfiles", user_id, "Connections"), other_id);
+    await setDoc(docRef, {});
+}
+
+export async function removeUserConnection(user_id: string, other_id: string): Promise<void> {
+    const docRef = doc(collection(db, "UserProfiles", user_id, "Connections"), other_id);
+    await deleteDoc(docRef);
+}
+
+export async function getAllUserConnections(user_id: string): Promise<string[]> {
+    const q = query(collection(db, "UserProfiles", user_id, "Connections"));
+
+    let found: string[] = [];
+    await getDocs(q).then((qs) => {
+            found = qs.docs.map((d) => d.id);
+        }
+    );
+    return found;
 }

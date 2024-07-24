@@ -1,17 +1,55 @@
-import { UserProfile } from "../../util/user_profile";
+import { addUserConnection, isUserAConnection, removeUserConnection, UserProfile } from "../../util/user_profile";
 import { Color, ColorToCode } from "../../util/util";
-import { useContext } from "react";
+import { useContext, useReducer, useState } from "react";
 // import { useNavigate } from "react-router-dom";
 import { QRCodeSVG } from "qrcode.react";
 import { LanguageContext } from "../../main";
+import { DashLg, PlusLg } from "react-bootstrap-icons";
+import { auth } from "../../util/firebase";
 
 interface Props {
     user_profile: UserProfile,
-    enable_click: boolean
+    enable_click: boolean,
+    can_connect: boolean,
 }
 
-export function BusinessCard({ user_profile, enable_click }: Props) {
+export function BusinessCard({ user_profile, enable_click, can_connect }: Props) {
     const {translation: t} = useContext(LanguageContext)!;
+
+    const [isConnection, setIsConnection] = useState<boolean | null | undefined>(null);
+    if (isConnection === null) {
+        setIsConnection(undefined);
+        isUserAConnection(auth.currentUser!.uid, user_profile.docname!).then((c) => setIsConnection(c));
+    }
+    
+    let connectCallback;
+    if (isConnection !== undefined &&  isConnection !== null && auth.currentUser) {
+        if (isConnection) {
+            connectCallback = async (e) => { 
+                e.stopPropagation();
+                e.preventDefault();
+                e.bubbles = false;
+                await removeUserConnection(auth.currentUser!.uid, user_profile.docname);
+                setIsConnection(null);
+            };
+        }
+        else {
+            connectCallback = async (e) => { 
+                e.stopPropagation();
+                e.preventDefault();
+                e.bubbles = false;
+                await addUserConnection(auth.currentUser!.uid, user_profile.docname);
+                setIsConnection(null);
+            };
+        }
+    }
+    else {
+        connectCallback = (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            e.bubbles = false;
+        };
+    }
 
     const CARD_ASPECT_RATIO = 1.65;
     const HEIGHT = 300;
@@ -27,17 +65,17 @@ export function BusinessCard({ user_profile, enable_click }: Props) {
         return `rgb(${rgb.r},${rgb.g},${rgb.b})`
     }
 
-    // const greyed_string = col_to_string(secondary);
-    // const grey_button_css = {
-    //     "--bs-btn-color": greyed_string,
-    //     "--bs-btn-border-color": greyed_string,
-    //     "--bs-btn-hover-bg": greyed_string,
-    //     "--bs-btn-hover-border-color": greyed_string,
-    //     "--bs-btn-active-bg": greyed_string,
-    //     "--bs-btn-active-border-color": greyed_string,
-    //     "--bs-btn-disabled-color": greyed_string,
-    //     "--bs-btn-disabled-border-color": greyed_string
-    // } as React.CSSProperties;
+    const greyed_string = col_to_string(secondary);
+    const grey_button_css = {
+        "--bs-btn-color": greyed_string,
+        "--bs-btn-border-color": greyed_string,
+        "--bs-btn-hover-bg": greyed_string,
+        "--bs-btn-hover-border-color": greyed_string,
+        "--bs-btn-active-bg": greyed_string,
+        "--bs-btn-active-border-color": greyed_string,
+        "--bs-btn-disabled-color": greyed_string,
+        "--bs-btn-disabled-border-color": greyed_string
+    } as React.CSSProperties;
 
     const cardOnClick = enable_click ? () => { window.open("/uid/" + user_profile.docname + "/card", "_blank") } : undefined;
 
@@ -45,11 +83,25 @@ export function BusinessCard({ user_profile, enable_click }: Props) {
         <div className="card" style={{width: `${WIDTH}px`, height: `${HEIGHT}px`, background: col_to_string(background), color: col_to_string(foreground), borderRadius: 0}}>
             <div className="card-body d-flex justify-content-between flex-column" style={{padding: "2rem"}} onClick={cardOnClick}>
                 <div>
-                    <h2 className="card-title" style={{color: col_to_string(foreground)}}>{user_profile.data.firstname} {user_profile.data.surname}</h2>
-                    {user_profile.data.company ? 
-                    <h6 className="card-subtitle mb-2" style={{color: col_to_string(secondary)}}>{user_profile.data.job_title} • {user_profile.data.company}</h6> :
-                    <h6 className="card-subtitle mb-2" style={{color: col_to_string(secondary)}}>{user_profile.data.job_title}</h6>
-                    }
+                    <div className="d-flex justify-content-between">
+                        <div>
+                            <h2 className="card-title" style={{color: col_to_string(foreground)}}>{user_profile.data.firstname} {user_profile.data.surname}</h2>
+                            {user_profile.data.company ? 
+                            <h6 className="card-subtitle mb-2" style={{color: col_to_string(secondary)}}>{user_profile.data.job_title} • {user_profile.data.company}</h6> :
+                            <h6 className="card-subtitle mb-2" style={{color: col_to_string(secondary)}}>{user_profile.data.job_title}</h6>
+                            }
+                        </div>
+                        { can_connect && 
+                            <div className="d-flex align-items-start">
+                            { isConnection ?
+                                <button className="btn btn-outline-secondary d-flex align-items-center p-2" onClick={connectCallback} style={grey_button_css}><DashLg/></button>
+                                :
+                                <button className="btn btn-outline-secondary d-flex align-items-center p-2" onClick={connectCallback} style={grey_button_css}><PlusLg/></button>
+                            }
+                            </div>
+                        }
+                        
+                    </div>
                     <hr style={{color: col_to_string(secondary)}}/>
                 </div>
                 <div className="d-flex justify-content-between">
@@ -64,9 +116,7 @@ export function BusinessCard({ user_profile, enable_click }: Props) {
                         bgColor={ColorToCode(user_profile.data.card_background)} 
                         fgColor={ColorToCode(user_profile.data.card_secondary)}
                     />
-                    {/* <div className="d-flex align-items-end">
-                        <a target="_blank" href={"/uid/" + user_profile.docname + "/card"}><button className="btn btn-outline-secondary d-flex align-items-center p-2" style={grey_button_css}><Icon.ShareFill/></button></a>
-                    </div> */}
+                    
                 </div>
             </div>
         </div>

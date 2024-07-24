@@ -4,7 +4,7 @@ import { auth } from "../../util/firebase";
 import "./Header.scss";
 import { User } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
-import { getUserProfile } from "../../util/user_profile";
+import { getAllUserConnections, getUserProfile } from "../../util/user_profile";
 import { SearchOptions } from "../../pages/search/SearchPage";
 import { LanguageContext } from "../../main";
 import { EN_TRANSLATIONS, JP_TRANSLATIONS } from "../../translations/translations";
@@ -41,7 +41,7 @@ export function Header({ show_search_bar, header_state }: Props) {
                 }
             }
         });
-    }, []);
+    });
 
     const login_click = async () => {
         await signInWithGoogle();
@@ -81,6 +81,8 @@ export function Header({ show_search_bar, header_state }: Props) {
     else {
         youLink = "";
     }
+
+
 
     return <header className="p-3 text-bg-dark">
         <div className="container">
