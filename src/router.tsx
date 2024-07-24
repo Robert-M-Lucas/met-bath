@@ -7,6 +7,7 @@ import { FakeUserProfilePage } from "./pages/user_profile/FakeUserProfilePage.ts
 import { OthersPage } from "./pages/others/OthersPage.tsx";
 import { SearchPage } from "./pages/search/SearchPage.tsx";
 import { PreferencesPage } from "./pages/preferences/PreferencesPage.tsx";
+import ConnectionsPage from "./pages/connections/ConnectionsPage.tsx";
 
 // ? Routing - see https://reactrouter.com/en/main
 
@@ -16,11 +17,11 @@ export const router = createBrowserRouter([
         element: <IndexPage />,
         errorElement: <_404Page/>
     },
-    // {
-    //     path: "/you",
-    //     element: <YouPage />,
-    //     errorElement: <_404Page/>
-    // },
+    {
+        path: "/connections",
+        element: <ConnectionsPage />,
+        errorElement: <_404Page/>
+    },
     {
         path: "/others",
         element: <OthersPage />,
