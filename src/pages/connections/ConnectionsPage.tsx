@@ -1,11 +1,14 @@
 import { useContext, useState } from "react";
 import { Header } from "../../components/header/Header";
 import { LanguageContext } from "../../main";
-import { getAllUserConnections, getUserProfile, UserProfile } from "../../util/user_profile";
+import { getAllUserConnections, getUserProfile, removeUserConnection, UserProfile } from "../../util/user_profile";
 import { auth } from "../../util/firebase";
+import { DashLg } from "react-bootstrap-icons";
+import { useNavigate } from "react-router-dom";
 
 function ConnectionsPage() {
-    // const {translation: t} = useContext(LanguageContext)!;
+    const {translation: t} = useContext(LanguageContext)!;
+    const navigate = useNavigate();
     const [connections, setConnections] = useState<UserProfile[] | null | undefined>(undefined);
 
     auth.onAuthStateChanged(async () => {
@@ -23,6 +26,13 @@ function ConnectionsPage() {
         }
     });
 
+    auth.authStateReady().then(async () => {
+        if (auth.currentUser === null) {
+            navigate("/");
+            return;
+        }
+    });
+
     return (<>
         <Header header_state="Connections"/>
         <div className="w-100">
@@ -31,21 +41,26 @@ function ConnectionsPage() {
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">First Name</th>
-                        <th scope="col">Surname</th>
-                        <th scope="col">Username</th>
-                        <th scope="col">Remove</th>
+                        <th scope="col">{t.FIRST_NAME_LABEL}</th>
+                        <th scope="col">{t.SURNAME_LABEL}</th>
+                        <th scope="col">{t.USERNAME_LABEL}</th>
+                        <th scope="col">{t.REMOVE_CONNECTION_LABEL}</th>
                     </tr>
                 </thead>
                 <tbody>
-                    { connections && 
+                    { connections && auth.currentUser &&
                         connections.map((c, i) => {
                             return <tr>
                                 <th scope="row">{i + 1}</th>
                                 <td>{c.data.firstname}</td>
                                 <td>{c.data.surname}</td>
                                 <td>{c.data.alias}</td>
-                                <td>Remove</td>
+                                <td>
+                                    <button className="btn btn-outline-danger" role="submit" onClick={async () => {
+                                        await removeUserConnection(auth.currentUser!.uid, c.docname);
+                                        setConnections(undefined);
+                                    }}><DashLg/></button>
+                                </td>
                             </tr>
                         })!
                     }

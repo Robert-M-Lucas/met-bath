@@ -45,7 +45,8 @@ export interface TranslationInterface {
     PROFILE_CREATION_PAGE: string,
     PHONE_NUMBER_LABEL: string,
     WEBSITE_LABEL: string,
-    ABOUT_DESCRIPTION: string
+    ABOUT_DESCRIPTION: string,
+    REMOVE_CONNECTION_LABEL: string,
 }
 
 export const EN_TRANSLATIONS: TranslationInterface = {
@@ -92,7 +93,8 @@ export const EN_TRANSLATIONS: TranslationInterface = {
     PROFILE_CREATION_PAGE: "Profile creation page",
     PHONE_NUMBER_LABEL: "Phone Number",
     WEBSITE_LABEL: "Website",
-    ABOUT_DESCRIPTION: "Some extra information about you - not shown on your card."
+    ABOUT_DESCRIPTION: "Some extra information about you - not shown on your card.",
+    REMOVE_CONNECTION_LABEL: "Remove",
 }
 
 export const JP_TRANSLATIONS: TranslationInterface = {
@@ -139,5 +141,6 @@ export const JP_TRANSLATIONS: TranslationInterface = {
     PROFILE_CREATION_PAGE: "プロファイル再作ページ",
     PHONE_NUMBER_LABEL: "電話番号",
     WEBSITE_LABEL: "ウェブサイト",
-    ABOUT_DESCRIPTION: "自己紹介"
+    ABOUT_DESCRIPTION: "自己紹介",
+    REMOVE_CONNECTION_LABEL: "[JP] Remove",
 }
