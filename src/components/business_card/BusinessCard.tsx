@@ -1,7 +1,7 @@
 import { UserProfile } from "../../util/user_profile";
 import { Color, ColorToCode } from "../../util/util";
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { QRCodeSVG } from "qrcode.react";
 import { LanguageContext } from "../../main";
 
@@ -20,23 +20,23 @@ export function BusinessCard({ user_profile }: Props) {
     const secondary = user_profile.data.card_secondary ?? UserProfile.defaultSecondary();
     const background = user_profile.data.card_background ?? UserProfile.defaultBackground();
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const col_to_string = (rgb: Color): string => {
         return `rgb(${rgb.r},${rgb.g},${rgb.b})`
     }
 
-    const greyed_string = col_to_string(secondary);
-    const grey_button_css = {
-        "--bs-btn-color": greyed_string,
-        "--bs-btn-border-color": greyed_string,
-        "--bs-btn-hover-bg": greyed_string,
-        "--bs-btn-hover-border-color": greyed_string,
-        "--bs-btn-active-bg": greyed_string,
-        "--bs-btn-active-border-color": greyed_string,
-        "--bs-btn-disabled-color": greyed_string,
-        "--bs-btn-disabled-border-color": greyed_string
-    } as React.CSSProperties;
+    // const greyed_string = col_to_string(secondary);
+    // const grey_button_css = {
+    //     "--bs-btn-color": greyed_string,
+    //     "--bs-btn-border-color": greyed_string,
+    //     "--bs-btn-hover-bg": greyed_string,
+    //     "--bs-btn-hover-border-color": greyed_string,
+    //     "--bs-btn-active-bg": greyed_string,
+    //     "--bs-btn-active-border-color": greyed_string,
+    //     "--bs-btn-disabled-color": greyed_string,
+    //     "--bs-btn-disabled-border-color": greyed_string
+    // } as React.CSSProperties;
 
     return <>
         <div className="card" style={{width: `${WIDTH}px`, height: `${HEIGHT}px`, background: col_to_string(background), color: col_to_string(foreground), borderRadius: 0}}>
