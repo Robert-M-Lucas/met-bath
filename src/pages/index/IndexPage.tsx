@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Header } from "../../components/header/Header";
 import { LanguageContext } from "../../main";
+import { FullscreenCenter } from "../../components/FullscreenCenter";
 
 function IndexPage() {
     // const navigate = useNavigate();
@@ -13,7 +14,9 @@ function IndexPage() {
 
     return (<>
         <Header header_state="Home"/>
-        <h1>{t.INDEX_PAGE_NAME}</h1>
+        <FullscreenCenter>
+            <h1>{t.INDEX_PAGE_NAME}</h1>
+        </FullscreenCenter>
     </>);
 }
 

@@ -15,11 +15,14 @@ function ConnectionsPage() {
         if (connections === undefined && auth.currentUser) {
             setConnections(null);
 
-            let conns: UserProfile[] = [];
+            const conns: UserProfile[] = [];
             const c = await getAllUserConnections(auth.currentUser.uid);
 
             for (let i = 0; i < c.length; i++) {
-                conns.push((await getUserProfile(c[i]))!);
+                const profile = await getUserProfile(c[i]);
+                if (profile) {
+                    conns.push(profile);
+                }
             }
 
             setConnections(conns);
@@ -50,7 +53,7 @@ function ConnectionsPage() {
                 <tbody>
                     { connections && auth.currentUser &&
                         connections.map((c, i) => {
-                            return <tr>
+                            return <tr key={i}>
                                 <th scope="row">{i + 1}</th>
                                 <td>{c.data.firstname}</td>
                                 <td>{c.data.surname}</td>

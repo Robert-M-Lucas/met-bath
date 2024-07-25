@@ -23,9 +23,9 @@ export function BusinessCard({ user_profile, enable_click, can_connect }: Props)
     }
     
     let connectCallback;
-    if (isConnection !== undefined &&  isConnection !== null && auth.currentUser) {
+    if (isConnection !== undefined && isConnection !== null && auth.currentUser) {
         if (isConnection) {
-            connectCallback = async (e: React.MouseEvent<HTMLButtonElement>) => { 
+            connectCallback = async (e: React.MouseEvent<HTMLButtonElement>) => {
                 e.stopPropagation();
                 e.preventDefault();
                 e.bubbles = false;
