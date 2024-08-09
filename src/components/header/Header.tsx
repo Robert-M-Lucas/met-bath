@@ -84,7 +84,7 @@ export function Header({ show_search_bar, header_state }: Props) {
 
 
 
-    return <header className="p-3 text-bg-dark">
+    return <header className={"p-3" + (header_state == "Home" ? " text-white" : " text-bg-dark")}>
         <div className="container">
             <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 {/* <a href="/" className="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
@@ -107,7 +107,7 @@ export function Header({ show_search_bar, header_state }: Props) {
         
                 {show_search &&
                 <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" onSubmit={search}>
-                    <input type="search" onChange={(e) => { setSearchVal(e.currentTarget.value); }} id="headerSearch" className="form-control text-bg-dark" placeholder={t.SEARCH_PEOPLE_ELLIPSES} aria-label="Search"/>
+                    <input type="search" onChange={(e) => { setSearchVal(e.currentTarget.value); }} id="headerSearch" className="form-control text-white" style={{background: "none"}} placeholder={t.SEARCH_PEOPLE_ELLIPSES} aria-label="Search"/>
                 </form>}
                 
             

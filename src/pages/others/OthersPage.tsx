@@ -6,6 +6,7 @@ import { Nav } from "react-bootstrap";
 import { useContext } from "react";
 import { LanguageContext } from "../../main";
 import { UserProfile } from "../../util/user_profile";
+import { Footer } from "../../components/Footer";
 
 
 export function OthersPage() {
@@ -55,5 +56,6 @@ export function OthersPage() {
                 </div>
             </div>
         </div>
+        <Footer/>
     </>
 }

@@ -5,6 +5,7 @@ import { Header } from "../../components/header/Header";
 import { BusinessCard } from "../../components/business_card/BusinessCard";
 import { UserProfile } from "../../util/user_profile";
 import { SearchBar } from "../../components/SearchBar";
+import { Footer } from "../../components/Footer";
 
 export class SearchOptions {
     search: string
@@ -100,6 +101,6 @@ export function SearchPage() {
                 </div>
             </div>
         </div>
-        
+        <Footer/>
     </>;
 }

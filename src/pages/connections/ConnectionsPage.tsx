@@ -5,6 +5,7 @@ import { getAllUserConnections, getUserProfile, removeUserConnection, UserProfil
 import { auth } from "../../util/firebase";
 import { DashLg } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
+import { Footer } from "../../components/Footer";
 
 function ConnectionsPage() {
     const {translation: t} = useContext(LanguageContext)!;
@@ -38,7 +39,7 @@ function ConnectionsPage() {
 
     return (<>
         <Header header_state="Connections"/>
-        <div className="w-100">
+        <div className="w-100" style={{minHeight: "90vh"}}>
             <div className="container text-center mt-5">
                 <table className="table table-striped">
                 <thead>
@@ -71,6 +72,7 @@ function ConnectionsPage() {
                 </table>
             </div>
         </div>
+        <Footer/>
     </>);
 }
 

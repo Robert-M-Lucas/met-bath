@@ -8,6 +8,7 @@ import { ChromePicker, ColorResult } from "react-color";
 import React from "react";
 import { CodeToColor, ColorToCode } from "../../util/util";
 import { LanguageContext } from "../../main";
+import { Footer } from "../../components/Footer";
 
 
 export function PreferencesPage() {
@@ -185,6 +186,7 @@ export function PreferencesPage() {
             </form>
             <div className="mb-5"></div>
         </div>
+        <Footer/>
     </>
 }
 
