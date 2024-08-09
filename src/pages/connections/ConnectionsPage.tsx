@@ -5,6 +5,7 @@ import { getAllUserConnections, getUserProfile, removeUserConnection, UserProfil
 import { auth } from "../../util/firebase";
 import { DashLg } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
+import { Footer } from "../../components/Footer";
 
 function ConnectionsPage() {
     const {translation: t} = useContext(LanguageContext)!;
@@ -15,11 +16,14 @@ function ConnectionsPage() {
         if (connections === undefined && auth.currentUser) {
             setConnections(null);
 
-            let conns: UserProfile[] = [];
+            const conns: UserProfile[] = [];
             const c = await getAllUserConnections(auth.currentUser.uid);
 
             for (let i = 0; i < c.length; i++) {
-                conns.push((await getUserProfile(c[i]))!);
+                const profile = await getUserProfile(c[i]);
+                if (profile) {
+                    conns.push(profile);
+                }
             }
 
             setConnections(conns);
@@ -35,7 +39,7 @@ function ConnectionsPage() {
 
     return (<>
         <Header header_state="Connections"/>
-        <div className="w-100">
+        <div className="w-100" style={{minHeight: "90vh"}}>
             <div className="container text-center mt-5">
                 <table className="table table-striped">
                 <thead>
@@ -50,7 +54,7 @@ function ConnectionsPage() {
                 <tbody>
                     { connections && auth.currentUser &&
                         connections.map((c, i) => {
-                            return <tr>
+                            return <tr key={i}>
                                 <th scope="row">{i + 1}</th>
                                 <td>{c.data.firstname}</td>
                                 <td>{c.data.surname}</td>
@@ -68,6 +72,7 @@ function ConnectionsPage() {
                 </table>
             </div>
         </div>
+        <Footer/>
     </>);
 }
 

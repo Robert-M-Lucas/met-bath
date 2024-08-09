@@ -1,6 +1,6 @@
-import { useContext } from "react";
+import { Footer } from "../../components/Footer";
 import { Header } from "../../components/header/Header";
-import { LanguageContext } from "../../main";
+import IndexInner from "./IndexInner";
 
 function IndexPage() {
     // const navigate = useNavigate();
@@ -9,11 +9,15 @@ function IndexPage() {
     //     navigate("/fakeuser/" + id);
     // };
 
-    const {translation: t} = useContext(LanguageContext)!;
-
     return (<>
-        <Header header_state="Home"/>
-        <h1>{t.INDEX_PAGE_NAME}</h1>
+        <section id="main"></section>
+        <div className="d-flex" style={{height: "100vh"}}>
+            <div className="d-block w-100">
+                <Header header_state="Home"/>
+            </div>
+        </div>
+        <IndexInner/>
+        <Footer white={true}/>
     </>);
 }
 
