@@ -5,6 +5,7 @@ import {connectFirestoreEmulator, Firestore, getFirestore } from "firebase/fires
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 import firebase from "firebase/compat";
+import { IS_DEV, isDev } from "./util";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -22,10 +23,13 @@ let _app = undefined;
 let _auth = undefined;
 let _db = undefined;
 const USE_EMULATORS = false;
+
+
+
 if (import.meta.env.MODE === "test") {
     //
 }
-else if (import.meta.env.DEV && USE_EMULATORS) {
+else if (IS_DEV && USE_EMULATORS) {
     // Initialize Firebase
     _app = initializeApp(firebaseConfig);
     // export const analytics = getAnalytics(app);

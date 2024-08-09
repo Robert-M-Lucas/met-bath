@@ -36,3 +36,5 @@ export function HSVtoRGB(h: number, s: number, v: number): Color {
         b: Math.round(b! * 255)
     };
 }
+
+export const IS_DEV = import.meta.env.DEV;
