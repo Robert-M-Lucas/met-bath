@@ -3,6 +3,7 @@ import { LanguageContext } from "../../main";
 import {Helmet} from 'react-helmet';
 import "./IndexStyle.scss"
 import { ArrowDownSquare, ArrowUpSquare } from "react-bootstrap-icons";
+import { faker } from "@faker-js/faker";
 
 export default function IndexInner() {
     const {translation: t} = useContext(LanguageContext)!;
@@ -21,9 +22,16 @@ export default function IndexInner() {
         </div>
         <div className="d-flex flex-column" style={{minHeight: "100vh", width: "100vw"}}>
             {/* ABOUT */}
-            <section id="about">
-                <div className="text-center text-white" style={{marginTop: "200px"}}>
-                    <h1>{t.ABOUT_US}</h1>
+            <section id="about" className="d-flex justify-content-center" style={{width: "100vw"}}>
+                <div className="text-center text-white" style={{marginTop: "100px", maxWidth: "800px"}}>
+                    <h1 style={{fontSize: "50px"}}>{t.ABOUT_US}</h1>
+                    <p style={{whiteSpace: "pre-line", textAlign: "justify"}}>
+                        {
+                            [... Array(3)].map(() => {
+                                return faker.lorem.paragraph(15);
+                            }).join("\n\n")
+                        }
+                    </p>
                 </div>
             </section>
 
