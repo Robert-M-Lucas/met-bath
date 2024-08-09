@@ -13,8 +13,8 @@ export default function IndexInner() {
             <style>{'body { background-color: #333333; box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5); min-height: 100vh}'}</style>
         </Helmet>
         <div className="w-100 text-center text-white" style={{position: "absolute", top: "50%", transform: "translate(0, -50%)",}}>
-            <h1 style={{fontSize: "70px"}}><b>The Digital Businesscard Platform</b></h1>
-            <p style={{fontSize: "35px"}}>Some tag line a business student would come up with</p>
+            <h1 style={{fontSize: "70px"}}><b>{t.MET_MAIN_TEXT}</b></h1>
+            <p style={{fontSize: "35px"}}>{t.MET_MAIN_TAGLINE}</p>
         </div>
         <div className="text-center text-white w-100" style={{position: "absolute", bottom: "30px"}}>
             <a href="#about" className="text-white"><ArrowDownSquare style={{width: "40px", height: "40px"}}/></a>
@@ -23,7 +23,7 @@ export default function IndexInner() {
             {/* ABOUT */}
             <section id="about">
                 <div className="text-center text-white" style={{marginTop: "200px"}}>
-                    <h1>About Us</h1>
+                    <h1>{t.ABOUT_US}</h1>
                 </div>
             </section>
 

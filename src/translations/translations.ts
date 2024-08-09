@@ -47,6 +47,9 @@ export interface TranslationInterface {
     WEBSITE_LABEL: string,
     ABOUT_DESCRIPTION: string,
     REMOVE_CONNECTION_LABEL: string,
+    MET_MAIN_TEXT: string,
+    MET_MAIN_TAGLINE: string,
+    ABOUT_US: string
 }
 
 export const EN_TRANSLATIONS: TranslationInterface = {
@@ -95,6 +98,9 @@ export const EN_TRANSLATIONS: TranslationInterface = {
     WEBSITE_LABEL: "Website",
     ABOUT_DESCRIPTION: "Some extra information about you - not shown on your card.",
     REMOVE_CONNECTION_LABEL: "Remove",
+    MET_MAIN_TEXT: "The Digital Business Card Platform",
+    MET_MAIN_TAGLINE: "[Some tag line a business student would come up with]",
+    ABOUT_US: "About Us",
 }
 
 export const JP_TRANSLATIONS: TranslationInterface = {
@@ -143,4 +149,7 @@ export const JP_TRANSLATIONS: TranslationInterface = {
     WEBSITE_LABEL: "ウェブサイト",
     ABOUT_DESCRIPTION: "自己紹介",
     REMOVE_CONNECTION_LABEL: "[JP] Remove",
+    MET_MAIN_TEXT: "[JP] The Digital Business Card Platform",
+    MET_MAIN_TAGLINE: "[JP] [Some tag line a business student would come up with]",
+    ABOUT_US: "[JP] About Us",
 }
